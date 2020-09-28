@@ -1,20 +1,16 @@
-package me.giverplay.supermario.world;
+package me.giverplay.teamfortress.world;
 
-import static me.giverplay.supermario.world.World.TILE_SIZE;
+import static me.giverplay.teamfortress.world.World.TILE_SIZE;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
-import me.giverplay.supermario.Game;
+import me.giverplay.teamfortress.game.Game;
 
 public class Tile
 {
 	private static Game game = Game.getGame();
-	
-	public static BufferedImage TILE_PAREDE = game.getSpritesheet().getSprite(TILE_SIZE * 0, 0, TILE_SIZE, TILE_SIZE);
-	public static BufferedImage TILE_PLATFORM = game.getSpritesheet().getSprite(TILE_SIZE * 2, 0, TILE_SIZE, TILE_SIZE);
-	public static BufferedImage TILE_PLATFORM_DOWN = game.getSpritesheet().getSprite(TILE_SIZE, 0, TILE_SIZE, TILE_SIZE);
-	
+
 	private BufferedImage sprite;
 	
 	private boolean isRigid;

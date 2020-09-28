@@ -1,4 +1,4 @@
-package me.giverplay.supermario.graphics;
+package me.giverplay.teamfortress.graphics;
 
 import java.awt.Font;
 import java.awt.FontFormatException;

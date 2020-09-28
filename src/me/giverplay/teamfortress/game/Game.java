@@ -1,4 +1,4 @@
-package me.giverplay.supermario;
+package me.giverplay.teamfortress.game;
 
 import java.awt.Canvas;
 import java.awt.Color;
@@ -9,22 +9,18 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import javax.swing.JFrame;
 
-import me.giverplay.supermario.entity.Entity;
-import me.giverplay.supermario.entity.entities.Player;
-import me.giverplay.supermario.events.Listeners;
-import me.giverplay.supermario.graphics.Camera;
-import me.giverplay.supermario.graphics.FontUtils;
-import me.giverplay.supermario.graphics.Spritesheet;
-import me.giverplay.supermario.graphics.UI;
-import me.giverplay.supermario.sound.Sound;
-import me.giverplay.supermario.world.World;
+import me.giverplay.teamfortress.entity.EntityHuman;
+import me.giverplay.teamfortress.entity.entities.Player;
+import me.giverplay.teamfortress.graphics.FontUtils;
+import me.giverplay.teamfortress.graphics.Spritesheet;
+import me.giverplay.teamfortress.graphics.UI;
+import me.giverplay.teamfortress.world.World;
 
-public class Game extends Canvas implements Runnable
+public class Game extends Canvas
 {
 	private static final long serialVersionUID = 1L;
 	
@@ -32,13 +28,12 @@ public class Game extends Canvas implements Runnable
 	public static final int HEIGHT = 240;
 	public static final int SCALE = 2;
 	
-	private List<Entity> entities;
+	private List<EntityHuman> entities;
 	
 	private static Game game;
 	private static int FPS = 0;
 	
 	private Camera camera;
-	private Spritesheet sprite;
 	private World world;
 	private Player player;
 	private UI ui;
@@ -50,7 +45,6 @@ public class Game extends Canvas implements Runnable
 	private boolean isRunning = false;
 	private boolean showGameOver = true;
 	private boolean morreu = false;
-	private boolean nextLevel = false;
 	
 	private int gameOverFrames = 0;
 	private int maxGameOverFrames = 30;
@@ -64,13 +58,15 @@ public class Game extends Canvas implements Runnable
 		return game;
 	}
 	
-	// Métodos Startup | TODO
 	public Game()
 	{
 		setPreferredSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
 		
+		game = this;
 		setupFrame();
 		setupAssets();
+		
+		new Listeners(this);
 	}
 	
 	public static void main(String[] args)
@@ -78,8 +74,7 @@ public class Game extends Canvas implements Runnable
 		Spritesheet.init();
 		Sound.init();
 		
-		Game game = new Game();
-		game.start();
+		new Game();
 	}
 	
 	private void setupFrame()
@@ -92,13 +87,10 @@ public class Game extends Canvas implements Runnable
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
-		new Listeners(this);
 	}
 	
 	private void setupAssets()
 	{
-		game = this;
-		
 		coins = 0;
 		maxCoins = 0;
 		enemyC = 0;
@@ -107,7 +99,7 @@ public class Game extends Canvas implements Runnable
 		entities = new ArrayList<>();
 		
 		camera = new Camera(0, 0);
-		player = new Player(1, 1, 16, 16);
+		player = new Player(1, 1);
 		world = new World("/World.png");
 		
 		ui = new UI();
@@ -115,19 +107,13 @@ public class Game extends Canvas implements Runnable
 		entities.add(player);
 		image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_BGR);
 		
-		nextLevel = false;
 		morreu = false;
 	}
-	
-	// Metodos de Controle do Fluxo | TODO
 	
 	public synchronized void start()
 	{
 		isRunning = true;
-		thread = new Thread(this);
-		thread.start();
-		
-		new Thread(this::tick);
+		new GameTask(this);
 	}
 	
 	public synchronized void stop()
@@ -143,64 +129,17 @@ public class Game extends Canvas implements Runnable
 		}
 	}
 	
-	public synchronized void restart()
-	{
-		setupAssets();
-	}
-	
-	public static void handleRestart()
-	{
-		game.restart();
-	}
-	
-	// Core | TODO
-	
-	@Override
-	public void run()
-	{
-		requestFocus();
-		
-		long lastTime = System.nanoTime();
-		long timer = System.currentTimeMillis();
-		
-		double ticks = 60.0D;
-		double ns = 1000000000 / ticks;
-		double delta = 0.0D;
-		
-		int fps = 0;
-		
-		while(isRunning)
-		{
-			long now = System.nanoTime();
-			delta += (now - lastTime) / ns;
-			lastTime = now;
-			
-			if(delta >= 1)
-			{
-				tick();
-				render();
-				
-				delta--;
-				fps++;
-			}
-			
-			if(System.currentTimeMillis() - timer >= 1000)
-			{
-				FPS = fps;
-				fps = 0;
-				timer += 1000;
-			}
-		}
-		
-		stop();
-	}
-	
 	public synchronized void tick()
 	{
-		if(!morreu && !nextLevel)
+		if(!morreu)
 		{
 			for(int i = 0; i < entities.size(); i++) entities.get(i).tick();
 		}
+	}
+	
+	public boolean isRunning()
+	{
+		return isRunning;
 	}
 	
 	public synchronized void render()
@@ -218,15 +157,11 @@ public class Game extends Canvas implements Runnable
 		g.setColor(new Color(110, 200, 255));
 		g.fillRect(0, 0, WIDTH * SCALE, HEIGHT * SCALE);
 		
-		/** Renderiaza��o do Jogo **/
-		
 		world.render(g);
 		
-		Collections.sort(entities, Entity.sortDepth);
+		entities.sort(EntityHuman.sortDepth);
 		
 		for(int i = 0; i < entities.size(); i++) entities.get(i).render(g);
-		
-		/******/
 		
 		g.dispose();
 		g = bs.getDrawGraphics();
@@ -234,7 +169,7 @@ public class Game extends Canvas implements Runnable
 		
 		renderSmooth(g);
 		
-		if(morreu || nextLevel)
+		if(1 == 2)
 		{
 			Graphics2D g2 = (Graphics2D) g;
 			
@@ -277,16 +212,10 @@ public class Game extends Canvas implements Runnable
 		g.drawString("FPS: " + FPS, 2, 12);
 	}
 	
-	// Getters e Setters | TODO
 	
 	public Player getPlayer()
 	{
 		return this.player;
-	}
-	
-	public Spritesheet getSpritesheet()
-	{
-		return this.sprite;
 	}
 	
 	public World getWorld()
@@ -294,21 +223,11 @@ public class Game extends Canvas implements Runnable
 		return this.world;
 	}
 	
-	public List<Entity> getEntities()
+	public List<EntityHuman> getEntities()
 	{
 		return this.entities;
 	}
 	
-	public boolean morreu()
-	{
-		return this.morreu;
-	}
-	
-	public boolean venceu()
-	{
-		return this.nextLevel;
-	}
-
 	public void matar()
 	{
 		this.morreu = true;
@@ -357,15 +276,5 @@ public class Game extends Canvas implements Runnable
 	public void addMaxEnemyCount()
 	{
 		this.maxEnemyC++;
-	}
-	
-	public boolean canLevelUP()
-	{		
-		return maxEnemyC - enemyC == 0 && maxCoins - coins == 0;
-	}
-	
-	public void handleLevelUP()
-	{
-		
 	}
 }

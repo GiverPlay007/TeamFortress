@@ -1,4 +1,4 @@
-package me.giverplay.supermario.world;
+package me.giverplay.teamfortress.world;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
@@ -6,13 +6,9 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import me.giverplay.supermario.Game;
-import me.giverplay.supermario.entity.entities.Coin;
-import me.giverplay.supermario.entity.entities.Enemy;
-import me.giverplay.supermario.entity.entities.LifePack;
-import me.giverplay.supermario.entity.entities.NextLevel;
-import me.giverplay.supermario.graphics.Camera;
-import me.giverplay.supermario.utils.Cores;
+import me.giverplay.teamfortress.game.Game;
+import me.giverplay.teamfortress.game.Camera;
+import me.giverplay.teamfortress.graphics.Cores;
 
 public class World
 {
@@ -56,35 +52,14 @@ public class World
 				{
 					int index = xx + (yy * width);
 					
-					tiles[index] = new AirTile(xx * TILE_SIZE, yy * TILE_SIZE);
+					tiles[index] = null;
 					
 					switch (pixels[index])
-					{	
-						case Cores.TILE_GRAMA:
-							tiles[index] = new FloorTile(xx * TILE_SIZE, yy * TILE_SIZE,yy == 0 ? true : pixels[xx + (yy -1) * width] != Cores.TILE_GRAMA);
-							break;
+					{
 							
 						case Cores.LOC_JOGADOR:
 							game.getPlayer().setX(xx * TILE_SIZE);
 							game.getPlayer().setY(yy * TILE_SIZE);
-							break;
-							
-						case Cores.LOC_ENEMY:
-							game.getEntities().add(new Enemy(xx * TILE_SIZE, yy * TILE_SIZE, TILE_SIZE, TILE_SIZE, 1));
-							game.addMaxEnemyCount();
-							break;
-							
-						case Cores.LOC_COIN:
-							game.getEntities().add(new Coin(xx * TILE_SIZE, yy * TILE_SIZE));
-							game.addMaxCoin();
-							break;
-							
-						case Cores.LOC_CHECK:
-							game.getEntities().add(new NextLevel(xx * TILE_SIZE, yy * TILE_SIZE));
-							break;
-							
-						case Cores.LOC_LIFEPACK:
-							game.getEntities().add(new LifePack(xx * TILE_SIZE, yy * TILE_SIZE));
 							break;
 							
 						default:

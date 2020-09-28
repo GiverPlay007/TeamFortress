@@ -1,4 +1,4 @@
-package me.giverplay.supermario.utils;
+package me.giverplay.teamfortress.graphics;
 
 public class Cores
 {

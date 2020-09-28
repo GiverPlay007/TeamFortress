@@ -1,25 +1,17 @@
-package me.giverplay.supermario.algorithms;
+package me.giverplay.teamfortress.algorithms;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import me.giverplay.supermario.world.Tile;
-import me.giverplay.supermario.world.World;
+import me.giverplay.teamfortress.world.Tile;
+import me.giverplay.teamfortress.world.World;
 
 public class AStar
 {
 	public static double lastTime = System.currentTimeMillis();
 	
-	private static Comparator<Node> nodeSorter = new Comparator<Node>()
-	{
-		@Override
-		public int compare(Node n0, Node n1)
-		{
-			return (n1.getfCost() < n0.getfCost() ? +1 : n1.getfCost() > n0.getfCost() ? -1 : 0);
-		}
-	};
+	private static final Comparator<Node> nodeSorter = Comparator.comparingDouble(Node::getfCost);
 	
 	public static boolean clear()
 	{
@@ -43,7 +35,7 @@ public class AStar
 		
 		while(openList.size() > 0)
 		{
-			Collections.sort(openList, nodeSorter);
+			openList.sort(nodeSorter);
 			current = openList.get(0);
 			
 			if(current.getTile().equals(end))

@@ -1,4 +1,4 @@
-package me.giverplay.supermario.sound;
+package me.giverplay.teamfortress.game;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

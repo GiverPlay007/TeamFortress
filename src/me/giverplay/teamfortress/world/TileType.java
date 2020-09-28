@@ -1,4 +1,4 @@
-package me.giverplay.supermario.world;
+package me.giverplay.teamfortress.world;
 
 public enum TileType
 {

@@ -1,4 +1,4 @@
-package me.giverplay.supermario.entity;
+package me.giverplay.teamfortress.entity;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;
@@ -7,20 +7,20 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
 
-import me.giverplay.supermario.Game;
-import me.giverplay.supermario.algorithms.Node;
-import me.giverplay.supermario.algorithms.Vector2i;
-import me.giverplay.supermario.world.World;
+import me.giverplay.teamfortress.game.Game;
+import me.giverplay.teamfortress.algorithms.Node;
+import me.giverplay.teamfortress.algorithms.Vector2i;
+import me.giverplay.teamfortress.world.World;
 
 
-import static me.giverplay.supermario.world.World.moveAllowed;
+import static me.giverplay.teamfortress.world.World.moveAllowed;
 
-public class Entity
+public class EntityHuman
 {
 	protected static Random random = new Random();
-	private static Game game = Game.getGame();
+	protected static Game game = Game.getGame();
 	
-	private EntityType type;
+	private EntityHumanType type;
 	
 	protected List<Node> path;
 	
@@ -44,7 +44,7 @@ public class Entity
 	private int maxAnimFrames = 10;
 	private int animIndex;
 	
-	public Entity(EntityType type, double x, double y)
+	public EntityHuman(EntityHumanType type, double x, double y)
 	{
 		this.x = x;
 		this.y = y;
@@ -88,7 +88,7 @@ public class Entity
 		g.drawImage(sprites[animIndex], getX() - game.getCamera().getX(), getY() - game.getCamera().getY(), width, height, null);
 	}
 	
-	public void setType(EntityType type)
+	public void setType(EntityHumanType type)
 	{
 		this.type = type;
 		this.width = type.getWidth();
@@ -253,7 +253,7 @@ public class Entity
 		return Math.sqrt((x2 - x1) * (x2 - x1) + ((y2 - y1) * (y2 - y1)));
 	}
 	
-	public static boolean isColliding(Entity e1, Entity e2)
+	public static boolean isColliding(EntityHuman e1, EntityHuman e2)
 	{
 		Rectangle e1m = new Rectangle(e1.getX(), e1.getY(), e1.getWidth(), e1.getHeight());
 		Rectangle e2m = new Rectangle(e2.getX(), e2.getY(), e2.getWidth(), e2.getHeight());
@@ -281,5 +281,5 @@ public class Entity
 		return this.jumping;
 	}
 	
-	public static Comparator<Entity> sortDepth = Comparator.comparingInt(Entity::getDepth);
+	public static Comparator<EntityHuman> sortDepth = Comparator.comparingInt(EntityHuman::getDepth);
 }

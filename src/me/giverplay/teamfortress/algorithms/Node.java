@@ -1,4 +1,4 @@
-package me.giverplay.supermario.algorithms;
+package me.giverplay.teamfortress.algorithms;
 
 public class Node
 {
