@@ -1,5 +1,7 @@
 package me.giverplay.teamfortress.entity;
 
+import static me.giverplay.teamfortress.graphics.Spritesheet.TILE_SIZE;
+
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -224,25 +226,25 @@ public class EntityHuman
 			{
 				Vector2i target = path.get(path.size() - 1).getTile();
 				
-				if(x < target.x * World.TILE_SIZE)
+				if(x < target.x * TILE_SIZE)
 				{
 					x++;
 				}
-				else if(x > target.x * World.TILE_SIZE)
+				else if(x > target.x * TILE_SIZE)
 				{
 					x--;
 				}
 				
-				if(y < target.y * World.TILE_SIZE)
+				if(y < target.y * TILE_SIZE)
 				{
 					y++;
 				}
-				else if(y > target.y * World.TILE_SIZE)
+				else if(y > target.y * TILE_SIZE)
 				{
 					y--;
 				}
 				
-				if(x == target.x * World.TILE_SIZE && y == target.y * World.TILE_SIZE)
+				if(x == target.x * TILE_SIZE && y == target.y * TILE_SIZE)
 					path.remove(path.size() -1);
 			}
 		}

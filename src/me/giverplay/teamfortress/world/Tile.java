@@ -1,37 +1,45 @@
 package me.giverplay.teamfortress.world;
 
-import static me.giverplay.teamfortress.world.World.TILE_SIZE;
-
 import java.awt.Graphics;
-import java.awt.image.BufferedImage;
-
 import me.giverplay.teamfortress.game.Game;
 
 public class Tile
 {
-	private static Game game = Game.getGame();
-
-	private BufferedImage sprite;
+	protected static final Game game = Game.getGame();
+	private final int x, y;
 	
-	private boolean isRigid;
+	private TileType type;
 	
-	private int x, y;
-	
-	public Tile(int x, int y, boolean isRigid, BufferedImage sprite)
+	public Tile(TileType type, int x, int y)
 	{
 		this.x = x;
 		this.y = y;
-		this.sprite = sprite;
-		this.isRigid = isRigid;
+		
+		setType(type);
 	}
 	
 	public void render(Graphics g)
 	{
-		g.drawImage(sprite, x - game.getCamera().getX(), y - game.getCamera().getY(), null);
+		if(type == TileType.AIR)
+		{
+			return;
+		}
+		
+		g.drawImage(type.getSprite(), x - game.getCamera().getX(), y - game.getCamera().getY(), null);
 	}
 	
 	public boolean isRigid()
 	{
-		return this.isRigid;
+		return type.isRigid();
+	}
+	
+	public void setType(TileType type)
+	{
+		this.type = type;
+	}
+	
+	public TileType getType()
+	{
+		return this.type;
 	}
 }

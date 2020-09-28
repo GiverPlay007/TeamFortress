@@ -7,6 +7,8 @@ import javax.imageio.ImageIO;
 
 public final class Spritesheet
 {
+	public static final int TILE_SIZE = 16;
+	
 	private static BufferedImage chars;
 	private static BufferedImage map;
 	
@@ -55,6 +57,13 @@ public final class Spritesheet
 	public static BufferedImage[] terroristaBlueIdle;
 	public static BufferedImage[] terroristaBlueWalking;
 	public static BufferedImage[] terroristaBlueJumping;
+	
+	public static BufferedImage TILE_STONE;
+	public static BufferedImage TILE_GRASS;
+	public static BufferedImage TILE_BRICKS;
+	public static BufferedImage TILE_WHITE_BRICKS;
+	public static BufferedImage TILE_WOODEN_BOX;
+	public static BufferedImage TILE_PURPLE_BOX;
 	
 	// -----------------------------------------------------------------------
 	

@@ -1,5 +1,7 @@
 package me.giverplay.teamfortress.world;
 
+import static me.giverplay.teamfortress.graphics.Spritesheet.TILE_SIZE;
+
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -12,8 +14,6 @@ import me.giverplay.teamfortress.graphics.Cores;
 
 public class World
 {
-	public static final int TILE_SIZE = 16;
-	
 	private static Tile[] tiles;
 	
 	private Game game;
