@@ -138,7 +138,7 @@ public class World
 		return tiles;
 	}
 	
-	public static boolean canMove(int xn, int yn)
+	public static boolean moveAllowed(int xn, int yn)
 	{
 		int x1 = xn / TILE_SIZE;
 		int y1 = yn / TILE_SIZE;

@@ -12,42 +12,153 @@ import me.giverplay.supermario.algorithms.Node;
 import me.giverplay.supermario.algorithms.Vector2i;
 import me.giverplay.supermario.world.World;
 
+
+import static me.giverplay.supermario.world.World.moveAllowed;
+
 public class Entity
 {
 	protected static Random random = new Random();
 	private static Game game = Game.getGame();
 	
-	private final EntityType type;
+	private EntityType type;
 	
 	protected List<Node> path;
+	
+	private boolean right;
+	private boolean left;
+	private boolean walking;
+	private boolean jumping;
+	private boolean jump;
 	
 	protected double x;
 	protected double y;
 	protected double speed;
 	
+	private double gravity = 0.4;
+	private double vspd = 0;
+	
 	private int width;
 	private int height;
 	private int depth;
+	private int animFrames = 0;
+	private int maxAnimFrames = 10;
+	private int animIndex;
 	
 	public Entity(EntityType type, double x, double y)
 	{
 		this.x = x;
 		this.y = y;
-		this.type = type;
-		this.width = type.getWidth();
-		this.height = type.getHeight();
 		
-		this.depth = 0;
+		setType(type);
+		setDepth(0);
 	}
 	
 	public void tick()
 	{
+		checkJump();
 		
+		if(right)
+		{
+			x += speed;
+		}
+		
+		if(left)
+		{
+			x -= speed;
+		}
 	}
 	
 	public void render(Graphics g)
 	{
-		g.drawImage(sprite, getX() - game.getCamera().getX(), getY() - game.getCamera().getY(), width, height, null);
+		BufferedImage[] sprites = jumping ? type.getJump() : walking ? type.getWalking() : type.getIdle();
+		
+		animFrames++;
+		
+		if(animFrames >= maxAnimFrames)
+		{
+			animFrames = 0;
+			animIndex++;
+			
+			if(animIndex >= sprites.length)
+			{
+				animIndex = 0;
+			}
+		}
+		
+		g.drawImage(sprites[animIndex], getX() - game.getCamera().getX(), getY() - game.getCamera().getY(), width, height, null);
+	}
+	
+	public void setType(EntityType type)
+	{
+		this.type = type;
+		this.width = type.getWidth();
+		this.height = type.getHeight();
+	}
+	
+	protected void checkJump()
+	{
+		vspd += gravity;
+		
+		if (jump && !moveAllowed(getX(), (int) (y + 1)) && moveAllowed(getX(), (int) (y -1)))
+		{
+			vspd = -6;
+			jumping = true;
+		}
+		
+		if (!moveAllowed((int) x, (int) (y + vspd)))
+		{
+			int signVsp = 0;
+			
+			if (vspd >= 0)
+			{
+				signVsp = 1;
+			}
+			else
+			{
+				signVsp = -1;
+			}
+			
+			while (moveAllowed((int) x, (int) (y + signVsp)))
+			{
+				y = y + signVsp;
+			}
+			
+			vspd = 0;
+		}
+		
+		y = y + vspd;
+		
+		walking = false;
+		
+		if (!(right && left))
+		{
+			if (right)
+			{
+				if (moveAllowed((int) (x + speed), getY()))
+				{
+					moveX(speed);
+					
+					if (!jumping)
+					{
+						walking = true;
+					}
+				}
+				
+			} else if (left)
+			{
+				if (moveAllowed((int) (x - speed), getY()))
+				{
+					moveX(-speed);
+					
+					if (!jumping)
+					{
+						walking = true;
+					}
+				}
+			}
+		}
+		
+		jump = false;
 	}
 	
 	public void destroy()
@@ -105,11 +216,6 @@ public class Entity
 		return this.depth;
 	}
 	
-	public BufferedImage getSprite()
-	{
-		return this.sprite;
-	}
-	
 	public void followPath(List<Node> path)
 	{
 		if(path != null)
@@ -155,12 +261,25 @@ public class Entity
 		return e1m.intersects(e2m);
 	}
 	
-	public static Comparator<Entity> sortDepth = new Comparator<Entity>()
+	public void jump()
 	{
-		@Override
-		public int compare(Entity e0, Entity e1)
-		{
-			return (Integer.compare(e0.getDepth(), e1.getDepth()));
-		}
-	};
+		jump = true;
+	}
+	
+	public void moveRight(boolean right)
+	{
+		this.right = right;
+	}
+	
+	public void moveLeft(boolean left)
+	{
+		this.left = left;
+	}
+	
+	public boolean isJumping()
+	{
+		return this.jumping;
+	}
+	
+	public static Comparator<Entity> sortDepth = Comparator.comparingInt(Entity::getDepth);
 }

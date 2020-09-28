@@ -36,25 +36,28 @@ import java.awt.image.BufferedImage;
 
 public enum EntityType
 {
-  MINEIRO("Mineiro", mineiroPinkIdle, mineiroPinkWalking, mineiroPinkJumping, mineiroBlueIdle, mineiroBlueWalking, mineiroBlueJumping, 16, 16),
-  TERRORISTA("Terrorista", terroristaPinkIdle, terroristaPinkWalking, terroristaPinkJumping, terroristaBlueIdle, terroristaBlueWalking, terroristaBlueJumping, 16, 16),
-  FUZILEIRO("Fuzileiro", fuzileiroPinkIdle, fuzileiroPinkWalking, fuzileiroPinkJumping, fuzileiroBlueIdle, fuzileiroBlueWalking, fuzileiroBlueJumping, 16, 16),
-  SOLDADO("Soldado", soldadoPinkIdle, soldadoPinkWalking, soldadoPinkJumping, soldadoBlueIdle, soldadoBlueWalking, soldadoBlueJumping, 16, 16),
-  CARECA("Careca", carecaPinkIdle, carecaPinkWalking, carecaPinkJumping, carecaBlueIdle, carecaBlueWalking, carecaBlueJumping, 16, 16);
+  MINEIRO_BLUE("Mineiro", mineiroBlueIdle, mineiroBlueWalking, mineiroBlueJumping, 16, 16),
+  TERRORISTA_BLUE("Terrorista", terroristaBlueIdle, terroristaBlueWalking, terroristaBlueJumping, 16, 16),
+  FUZILEIRO_BLUE("Fuzileiro", fuzileiroBlueIdle, fuzileiroBlueWalking, fuzileiroBlueJumping, 16, 16),
+  SOLDADO_BLUE("Soldado", soldadoBlueIdle, soldadoBlueWalking, soldadoBlueJumping, 16, 16),
+  CARECA_BLUE("Careca", carecaBlueIdle, carecaBlueWalking, carecaBlueJumping, 16, 16),
+  MINEIRO_PINK("Mineiro", mineiroPinkIdle, mineiroPinkWalking, mineiroPinkJumping,16, 16),
+  TERRORISTA_PINK("Terrorista", terroristaPinkIdle, terroristaPinkWalking, terroristaPinkJumping, 16, 16),
+  FUZILEIRO_PINK("Fuzileiro", fuzileiroPinkIdle, fuzileiroPinkWalking, fuzileiroPinkJumping, 16, 16),
+  SOLDADO_PINK("Soldado", soldadoPinkIdle, soldadoPinkWalking, soldadoPinkJumping, 16, 16),
+  CARECA_PINK("Careca", carecaPinkIdle, carecaPinkWalking, carecaPinkJumping,16, 16);
   
   private final String name;
-  private final BufferedImage[] ROSA_IDLE, ROSA_WALK, ROSA_JUMP, BLUE_IDLE, BLUE_WALK, BLUE_JUMP;
+  private final BufferedImage[] IDLE, JUMP, WALKING;
   private final int WIDTH, HEIGHT;
   
-  EntityType(String name, BufferedImage[] rosaIdle, BufferedImage[] rosaRun, BufferedImage[] rosaJump, BufferedImage[] blueIdle, BufferedImage[] blueRun, BufferedImage[] blueJump, int width, int height)
+  EntityType(String name, BufferedImage[] idle, BufferedImage[] walk, BufferedImage[] jump, int width, int height)
   {
     this.name = name;
-    this.ROSA_IDLE = rosaIdle;
-    this.ROSA_WALK = rosaRun;
-    this.ROSA_JUMP = rosaJump;
-    this.BLUE_JUMP = blueJump;
-    this.BLUE_IDLE = blueIdle;
-    this.BLUE_WALK = blueRun;
+    this.IDLE = idle;
+    this.WALKING = walk;
+    this.JUMP = jump;
+   
     this.WIDTH = width;
     this.HEIGHT = height;
   }
@@ -64,34 +67,19 @@ public enum EntityType
     return name;
   }
   
-  public BufferedImage[] getIdlePink()
+  public BufferedImage[] getIdle()
   {
-    return this.ROSA_IDLE;
+    return this.IDLE;
   }
   
-  public BufferedImage[] getIdleBlue()
+  public BufferedImage[] getJump()
   {
-    return this.BLUE_IDLE;
+    return this.JUMP;
   }
   
-  public BufferedImage[] getWalkingBlue()
+  public BufferedImage[] getWalking()
   {
-    return this.BLUE_WALK;
-  }
-  
-  public BufferedImage[] getWalkingPink()
-  {
-    return this.ROSA_WALK;
-  }
-  
-  public BufferedImage[] getJumpPink()
-  {
-    return this.ROSA_JUMP;
-  }
-  
-  public BufferedImage[] getJumpBlue()
-  {
-    return this.BLUE_JUMP;
+    return this.WALKING;
   }
   
   public int getHeight()

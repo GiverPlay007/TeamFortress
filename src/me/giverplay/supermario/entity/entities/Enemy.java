@@ -1,6 +1,6 @@
 package me.giverplay.supermario.entity.entities;
 
-import static me.giverplay.supermario.world.World.canMove;
+import static me.giverplay.supermario.world.World.moveAllowed;
 
 import java.awt.Graphics;
 
@@ -46,11 +46,11 @@ public class Enemy extends Entity
 				game.getPlayer().damage();
 		}
 		
-		if (canMove(getX(), (int) (y + speed * 2)))
+		if (moveAllowed(getX(), (int) (y + speed * 2)))
 			moveY(speed * 2);
 		
-		if(canMove(getX() + (changeDir ? -World.TILE_SIZE : World.TILE_SIZE), (int) (y + 1))
-				|| !canMove(getX() + (changeDir ? (int) -speed : (int) -speed), getY()))
+		if(moveAllowed(getX() + (changeDir ? -World.TILE_SIZE : World.TILE_SIZE), (int) (y + 1))
+				|| !moveAllowed(getX() + (changeDir ? (int) -speed : (int) -speed), getY()))
 		{
 			changeDir = !changeDir;
 		}

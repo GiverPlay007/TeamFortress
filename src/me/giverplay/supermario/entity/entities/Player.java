@@ -1,6 +1,6 @@
 package me.giverplay.supermario.entity.entities;
 
-import static me.giverplay.supermario.world.World.canMove;
+import static me.giverplay.supermario.world.World.moveAllowed;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
@@ -25,9 +25,6 @@ public class Player extends Entity
 	private boolean animChangeStage = false;
 	private boolean canDamage = false;
 	private boolean moving = false;
-	
-	private double gravity = 0.4;
-	private double vspd = 0;
 	
 	private int undamageable = 0;
 	private int maxVida = 5;
@@ -65,91 +62,6 @@ public class Player extends Entity
 			{
 				undamageable = 0;
 				canDamage = true;
-			}
-		}
-		
-		vspd += gravity;
-		
-		if (jump && !canMove(getX(), (int) (y + 1)) && canMove(getX(), (int) (y -1)))
-		{
-			vspd = -6;
-			Sound.jump.play();
-		}
-		
-		jump = false;
-		
-		if (!canMove((int) x, (int) (y + vspd)))
-		{
-			
-			int signVsp = 0;
-			
-			if (vspd >= 0)
-			{
-				signVsp = 1;
-			} else
-			{
-				signVsp = -1;
-			}
-			
-			while (canMove((int) x, (int) (y + signVsp)))
-			{
-				y = y + signVsp;
-			}
-			
-			vspd = 0;
-		}
-		
-		y = y + vspd;
-		
-		moving = false;
-		
-		if (!(right && left))
-		{
-			if (right)
-			{
-				if (canMove((int) (x + speed), getY()))
-				{
-					moveX(speed);
-					if (!isJumping)
-						moving = true;
-				}
-				
-			} else if (left)
-			{
-				if (canMove((int) (x - speed), getY()))
-				{
-					moveX(-speed);
-					if (!isJumping)
-						moving = true;
-				}
-			}
-		}
-		
-		if (isJumping)
-		{
-			
-		} else if (moving)
-		{
-			anim_frames++;
-			
-			if (anim_frames >= MAX_FRAMES_ANIM)
-			{
-				anim_frames = 0;
-				
-				if (!animChangeStage)
-					anim++;
-				else
-					anim--;
-				
-				if (anim >= Entity.SPRITE_PLAYER_RIGHT.length - 1)
-				{
-					anim--;
-					animChangeStage = !animChangeStage;
-				} else if (anim < 0)
-				{
-					anim++;
-					animChangeStage = !animChangeStage;
-				}
 			}
 		}
 		
@@ -244,7 +156,7 @@ public class Player extends Entity
 	
 	public void handleJump()
 	{
-		if (!canMove(getX(), (int) (y + 1)))
+		if (!moveAllowed(getX(), (int) (y + 1)))
 			jump = true;
 	}
 	
@@ -270,6 +182,6 @@ public class Player extends Entity
 	
 	public boolean fallingRelative()
 	{
-		return canMove(getX(), getY() + 1) && vspd >= 0;
+		return moveAllowed(getX(), getY() + 1) && vspd >= 0;
 	}
 }
