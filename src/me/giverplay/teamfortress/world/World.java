@@ -22,12 +22,12 @@ public class World
 	private int width;
 	private int height;
 	
-	public World(String path)
+	public World()
 	{
 		game = Game.getGame();
 		camera = game.getCamera();
 		
-		initializeWorld(path);
+		initializeWorld("/images/Level.png");
 	}
 	
 	private void initializeWorld(String path)
@@ -57,9 +57,9 @@ public class World
 					switch (pixels[index])
 					{
 							
-						case Cores.LOC_JOGADOR:
-							game.getPlayer().setX(xx * TILE_SIZE);
-							game.getPlayer().setY(yy * TILE_SIZE);
+						case Cores.LOC_PLAYER:
+							//game.getPlayer().setX(xx * TILE_SIZE);
+							//game.getPlayer().setY(yy * TILE_SIZE);
 							break;
 							
 						default:
@@ -81,12 +81,10 @@ public class World
 		int xf = (camera.getX() + Game.WIDTH) >> 4;
 		int yf = (camera.getX() + Game.HEIGHT) >> 4;
 		
-		
 		for(int xx = xs; xx <= xf; xx++)
 		{
 			for(int yy = ys; yy <= yf; yy++)
 			{
-				
 				if(xx < xs || yy < ys || xx >= width || yy >= height)
 					continue;
 				

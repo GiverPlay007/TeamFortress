@@ -2,7 +2,7 @@ package me.giverplay.teamfortress.game;
 
 public class GameTask implements Runnable
 {
-  private Game game;
+  private final Game game;
   
   private boolean shouldTick = false;
   private boolean shouldRender = false;
@@ -17,8 +17,8 @@ public class GameTask implements Runnable
     this.game = game;
     
     new Thread(this, "Game Looping - Main").start();
-    new Thread(GameTask.this::tick, "Game Looping - Tick").start();
-    new Thread(GameTask.this::render, "Game Looping - Render").start();
+    new Thread(() -> { while(this.game.isRunning()) tick(); }, "Game Looping - Tick").start();
+    new Thread(() -> { while(this.game.isRunning()) render(); }, "Game Looping - Render").start();
   }
   
   private void tick()
@@ -27,7 +27,7 @@ public class GameTask implements Runnable
     {
       return;
     }
-    
+   
     game.tick();
     ticks++;
     shouldTick = false;
@@ -43,6 +43,16 @@ public class GameTask implements Runnable
     game.render();
     fps++;
     shouldRender = false;
+  }
+  
+  public int getTpsAvg()
+  {
+    return this.tps;
+  }
+  
+  public int getFpsAvg()
+  {
+    return this.fpsAvg;
   }
   
   @Override

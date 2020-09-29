@@ -1,27 +1,16 @@
 package me.giverplay.teamfortress.entity;
 
-import static me.giverplay.teamfortress.graphics.Spritesheet.TILE_SIZE;
-
 import java.awt.Graphics;
-import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
-import java.util.Comparator;
 import java.util.List;
-import java.util.Random;
-
-import me.giverplay.teamfortress.game.Game;
 import me.giverplay.teamfortress.algorithms.Node;
 import me.giverplay.teamfortress.algorithms.Vector2i;
-import me.giverplay.teamfortress.world.World;
 
-
+import static me.giverplay.teamfortress.graphics.Spritesheet.TILE_SIZE;
 import static me.giverplay.teamfortress.world.World.moveAllowed;
 
-public class EntityHuman
+public class EntityHuman extends Entity
 {
-	protected static Random random = new Random();
-	protected static Game game = Game.getGame();
-	
 	private EntityHumanType type;
 	
 	protected List<Node> path;
@@ -32,29 +21,23 @@ public class EntityHuman
 	private boolean jumping;
 	private boolean jump;
 	
-	protected double x;
-	protected double y;
 	protected double speed;
 	
 	private double gravity = 0.4;
 	private double vspd = 0;
 	
-	private int width;
-	private int height;
-	private int depth;
 	private int animFrames = 0;
 	private int maxAnimFrames = 10;
 	private int animIndex;
 	
 	public EntityHuman(EntityHumanType type, double x, double y)
 	{
-		this.x = x;
-		this.y = y;
+		super(x, y, type.getWidth(), type.getHeight(), 0);
 		
 		setType(type);
-		setDepth(0);
 	}
 	
+	@Override
 	public void tick()
 	{
 		checkJump();
@@ -70,6 +53,7 @@ public class EntityHuman
 		}
 	}
 	
+	@Override
 	public void render(Graphics g)
 	{
 		BufferedImage[] sprites = jumping ? type.getJump() : walking ? type.getWalking() : type.getIdle();
@@ -163,61 +147,6 @@ public class EntityHuman
 		jump = false;
 	}
 	
-	public void destroy()
-	{
-		game.getEntities().remove(this);
-	}
-	
-	public void setX(int x)
-	{
-		this.x = x;
-	}
-	
-	public void setY(int y)
-	{
-		this.y = y;
-	}
-	
-	public void setDepth(int toSet)
-	{
-		this.depth = toSet;
-	}
-	
-	public void moveX(double d)
-	{
-		x += d;
-	}
-	
-	public void moveY(double d)
-	{
-		y += d;
-	}
-	
-	public int getX()
-	{
-		return (int) this.x;
-	}
-	
-	public int getY()
-	{
-		return (int) this.y;
-	}
-	
-	public int getWidth()
-	{
-		return this.width;
-	}
-	
-	public int getHeight()
-	{
-		return this.height;
-	}
-	
-	public int getDepth()
-	{
-		return this.depth;
-	}
-	
 	public void followPath(List<Node> path)
 	{
 		if(path != null)
@@ -250,19 +179,6 @@ public class EntityHuman
 		}
 	}
 	
-	public double pointDistance(int x1, int y1, int x2, int y2)
-	{
-		return Math.sqrt((x2 - x1) * (x2 - x1) + ((y2 - y1) * (y2 - y1)));
-	}
-	
-	public static boolean isColliding(EntityHuman e1, EntityHuman e2)
-	{
-		Rectangle e1m = new Rectangle(e1.getX(), e1.getY(), e1.getWidth(), e1.getHeight());
-		Rectangle e2m = new Rectangle(e2.getX(), e2.getY(), e2.getWidth(), e2.getHeight());
-		
-		return e1m.intersects(e2m);
-	}
-	
 	public void jump()
 	{
 		jump = true;
@@ -282,6 +198,4 @@ public class EntityHuman
 	{
 		return this.jumping;
 	}
-	
-	public static Comparator<EntityHuman> sortDepth = Comparator.comparingInt(EntityHuman::getDepth);
 }

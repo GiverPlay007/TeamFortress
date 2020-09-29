@@ -18,53 +18,64 @@ public final class Spritesheet
 	}
 	
 	// -----------------------------------------------------------------------------------------------
-	public static BufferedImage[] mineiroPinkIdle;
 	public static BufferedImage[] mineiroPinkWalking;
 	public static BufferedImage[] mineiroPinkJumping;
+	public static BufferedImage[] mineiroPinkIdle;
 	
-	public static BufferedImage[] mineiroBlueIdle;
 	public static BufferedImage[] mineiroBlueWalking;
 	public static BufferedImage[] mineiroBlueJumping;
+	public static BufferedImage[] mineiroBlueIdle;
 	
-	public static BufferedImage[] soldadoPinkIdle;
 	public static BufferedImage[] soldadoPinkWalking;
 	public static BufferedImage[] soldadoPinkJumping;
+	public static BufferedImage[] soldadoPinkIdle;
 	
-	public static BufferedImage[] soldadoBlueIdle;
 	public static BufferedImage[] soldadoBlueWalking;
 	public static BufferedImage[] soldadoBlueJumping;
+	public static BufferedImage[] soldadoBlueIdle;
 	
-	public static BufferedImage[] fuzileiroPinkIdle;
 	public static BufferedImage[] fuzileiroPinkWalking;
 	public static BufferedImage[] fuzileiroPinkJumping;
+	public static BufferedImage[] fuzileiroPinkIdle;
 	
-	public static BufferedImage[] fuzileiroBlueIdle;
 	public static BufferedImage[] fuzileiroBlueWalking;
 	public static BufferedImage[] fuzileiroBlueJumping;
+	public static BufferedImage[] fuzileiroBlueIdle;
 	
-	public static BufferedImage[] carecaPinkIdle;
 	public static BufferedImage[] carecaPinkWalking;
 	public static BufferedImage[] carecaPinkJumping;
+	public static BufferedImage[] carecaPinkIdle;
 	
-	public static BufferedImage[] carecaBlueIdle;
 	public static BufferedImage[] carecaBlueWalking;
 	public static BufferedImage[] carecaBlueJumping;
+	public static BufferedImage[] carecaBlueIdle;
 	
-	public static BufferedImage[] terroristaPinkIdle;
 	public static BufferedImage[] terroristaPinkWalking;
 	public static BufferedImage[] terroristaPinkJumping;
+	public static BufferedImage[] terroristaPinkIdle;
 	
-	public static BufferedImage[] terroristaBlueIdle;
 	public static BufferedImage[] terroristaBlueWalking;
 	public static BufferedImage[] terroristaBlueJumping;
+	public static BufferedImage[] terroristaBlueIdle;
 	
-	public static BufferedImage TILE_STONE;
-	public static BufferedImage TILE_GRASS;
-	public static BufferedImage TILE_BRICKS;
 	public static BufferedImage TILE_WHITE_BRICKS;
 	public static BufferedImage TILE_WOODEN_BOX;
 	public static BufferedImage TILE_PURPLE_BOX;
+	public static BufferedImage TILE_BRICKS;
+	public static BufferedImage TILE_STONE;
+	public static BufferedImage TILE_GRASS;
 	
+	public static BufferedImage LIFE_PACK;
+	
+	public static BufferedImage WEAPON_REVOLVER;
+	public static BufferedImage WEAPON_SHOTGUN;
+	public static BufferedImage WEAPON_RPG;
+	public static BufferedImage WEAPON_AK;
+	
+	public static BufferedImage AMMO_REVOLVER;
+	public static BufferedImage AMMO_SHOTGUN;
+	public static BufferedImage AMMO_RPG;
+	public static BufferedImage AMMO_AK;
 	// -----------------------------------------------------------------------
 	
 	private Spritesheet() {	}

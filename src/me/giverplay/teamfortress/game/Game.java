@@ -13,7 +13,7 @@ import java.util.List;
 
 import javax.swing.JFrame;
 
-import me.giverplay.teamfortress.entity.EntityHuman;
+import me.giverplay.teamfortress.entity.Entity;
 import me.giverplay.teamfortress.entity.entities.Player;
 import me.giverplay.teamfortress.graphics.FontUtils;
 import me.giverplay.teamfortress.graphics.Spritesheet;
@@ -28,34 +28,37 @@ public class Game extends Canvas
 	public static final int HEIGHT = 240;
 	public static final int SCALE = 2;
 	
-	private List<EntityHuman> entities;
+	private List<Entity> entities;
 	
 	private static Game game;
-	private static int FPS = 0;
 	
+	private GameTask task;
 	private Camera camera;
+	private State state;
 	private World world;
 	private Player player;
 	private UI ui;
 	
 	private BufferedImage image;
-	private Thread thread;
 	private JFrame frame;
 	
 	private boolean isRunning = false;
-	private boolean showGameOver = true;
-	private boolean morreu = false;
+	private boolean showMessage = true;
 	
-	private int gameOverFrames = 0;
-	private int maxGameOverFrames = 30;
-	private int coins = 0;
-	private int maxCoins = 0;
-	private int enemyC = 0;
-	private int maxEnemyC = 0;
+	private int messageFrames = 0;
+	private int maxMessageFrames = 30;
 	
 	public static Game getGame()
 	{
 		return game;
+	}
+	
+	public static void main(String[] args)
+	{
+		Spritesheet.init();
+		Sound.init();
+		
+		new Game();
 	}
 	
 	public Game()
@@ -67,15 +70,11 @@ public class Game extends Canvas
 		setupAssets();
 		
 		new Listeners(this);
+		state = State.START;
+		
+		start();
 	}
 	
-	public static void main(String[] args)
-	{
-		Spritesheet.init();
-		Sound.init();
-		
-		new Game();
-	}
 	
 	private void setupFrame()
 	{
@@ -91,49 +90,41 @@ public class Game extends Canvas
 	
 	private void setupAssets()
 	{
-		coins = 0;
-		maxCoins = 0;
-		enemyC = 0;
-		maxEnemyC = 0;
-		
-		entities = new ArrayList<>();
-		
-		camera = new Camera(0, 0);
-		player = new Player(1, 1);
-		world = new World("/World.png");
-		
 		ui = new UI();
+		image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_BGR);
+		camera = new Camera(0, 0);
+		entities = new ArrayList<>();
+	}
+	
+	public void startGame()
+	{
+		state = State.LOADING;
+		entities.clear();
+		
+		player = new Player(0, 0);
+		world = new World();
 		
 		entities.add(player);
-		image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_BGR);
-		
-		morreu = false;
+		state = State.NORMAL;
 	}
 	
-	public synchronized void start()
+	private void start()
 	{
+		startGame();
 		isRunning = true;
-		new GameTask(this);
+		task = new GameTask(this);
 	}
 	
-	public synchronized void stop()
+	public void tick()
 	{
-		isRunning = false;
-		
-		try
-		{
-			thread.join();
-		} catch (InterruptedException e)
-		{
-			e.printStackTrace();
-		}
-	}
-	
-	public synchronized void tick()
-	{
-		if(!morreu)
+		if(state.doGameTick())
 		{
 			for(int i = 0; i < entities.size(); i++) entities.get(i).tick();
+		}
+		
+		if(state.doMenuTick())
+		{
+		
 		}
 	}
 	
@@ -142,7 +133,7 @@ public class Game extends Canvas
 		return isRunning;
 	}
 	
-	public synchronized void render()
+	public void render()
 	{
 		BufferStrategy bs = this.getBufferStrategy();
 		
@@ -159,9 +150,9 @@ public class Game extends Canvas
 		
 		world.render(g);
 		
-		entities.sort(EntityHuman.sortDepth);
+		entities.sort(Entity.sortDepth);
 		
-		for(int i = 0; i < entities.size(); i++) entities.get(i).render(g);
+		for(Entity entity : entities) entity.render(g);
 		
 		g.dispose();
 		g = bs.getDrawGraphics();
@@ -169,27 +160,27 @@ public class Game extends Canvas
 		
 		renderSmooth(g);
 		
-		if(1 == 2)
+		if(state == State.GAME_OVER || state == State.VICTORY)
 		{
 			Graphics2D g2 = (Graphics2D) g;
 			
 			g2.setColor(new Color(0, 0, 0, 100));
 			g2.fillRect(0, 0, WIDTH * SCALE, HEIGHT * SCALE);
 			
-			String txt = morreu ? "Game Over" : "Você Venceu!";
+			String txt = state == State.GAME_OVER ? "Game Over" : "Você Venceu!";
 			g.setColor(Color.WHITE);
 			g.setFont(FontUtils.getFont(32, Font.BOLD));
 			g.drawString(txt, (WIDTH * SCALE - g.getFontMetrics(g.getFont()).stringWidth(txt)) / 2, HEIGHT * SCALE / 2);
 			
-			gameOverFrames++;
+			messageFrames++;
 			
-			if(gameOverFrames > maxGameOverFrames)
+			if(messageFrames > maxMessageFrames)
 			{
-				gameOverFrames = 0;
-				showGameOver = !showGameOver;
+				messageFrames = 0;
+				showMessage = !showMessage;
 			}
 			
-			if(showGameOver)
+			if(showMessage)
 			{
 				g.setFont(FontUtils.getFont(24, Font.BOLD));
 				g.drawString("> Aperte ENTER para reiniciar <", (WIDTH * SCALE - g.getFontMetrics(g.getFont()).stringWidth("> Aperte ENTER para reiniciar <")) / 2, HEIGHT * SCALE / 2 + 28);
@@ -209,7 +200,8 @@ public class Game extends Canvas
 		// FPS
 		g.setColor(Color.WHITE);
 		g.setFont(FontUtils.getFont(11, Font.PLAIN));
-		g.drawString("FPS: " + FPS, 2, 12);
+		g.drawString("TICKS: " + task.getTpsAvg(), 2, 12);
+		g.drawString("FPS: " + task.getFpsAvg(), 2, 24);
 	}
 	
 	
@@ -223,14 +215,9 @@ public class Game extends Canvas
 		return this.world;
 	}
 	
-	public List<EntityHuman> getEntities()
+	public List<Entity> getEntities()
 	{
 		return this.entities;
-	}
-	
-	public void matar()
-	{
-		this.morreu = true;
 	}
 	
 	public Camera getCamera()
@@ -238,43 +225,8 @@ public class Game extends Canvas
 		return this.camera;
 	}
 	
-	public void addCoin()
+	public State getState()
 	{
-		this.coins++;
-	}
-	
-	public void addMaxCoin()
-	{
-		this.maxCoins++;
-	}
-	
-	public int getCoins()
-	{
-		return this.coins;
-	}
-	
-	public int getMaxCoins()
-	{
-		return this.maxCoins;
-	}
-	
-	public int getMaxEnemies()
-	{
-		return this.maxEnemyC;
-	}
-	
-	public int getEnemyCount()
-	{
-		return this.enemyC;
-	}
-	
-	public void addEnemyCount()
-	{
-		this.enemyC++;
-	}
-	
-	public void addMaxEnemyCount()
-	{
-		this.maxEnemyC++;
+		return state;
 	}
 }

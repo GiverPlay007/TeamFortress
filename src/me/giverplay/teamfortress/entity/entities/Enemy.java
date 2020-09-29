@@ -33,6 +33,5 @@ public class Enemy extends EntityHuman
 	public void destroy()
 	{
 		super.destroy();
-		game.addEnemyCount();
 	}
 }
