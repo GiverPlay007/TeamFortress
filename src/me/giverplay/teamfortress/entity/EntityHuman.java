@@ -60,7 +60,7 @@ public class EntityHuman extends Entity
 	
 	private void advanceAnim()
 	{
-		sprites = type.getIdle();
+		sprites = type.getWalking();
 		//sprites = jumping ? type.getJump() : walking ? type.getWalking() : type.getIdle();
 		animFrames++;
 		

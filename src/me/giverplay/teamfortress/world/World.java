@@ -16,8 +16,9 @@ public class World
 {
 	private static Tile[] tiles;
 	
-	private Game game;
+	private BufferedImage map;
 	private Camera camera;
+	private Game game;
 	
 	private int width;
 	private int height;
@@ -27,59 +28,72 @@ public class World
 		game = Game.getGame();
 		camera = game.getCamera();
 		
-		initializeWorld("/images/Level.png");
-	}
-	
-	private void initializeWorld(String path)
-	{
 		try
 		{
-			BufferedImage map = ImageIO.read(getClass().getResource(path));
-			
-			width = map.getWidth();
-			height = map.getHeight();
-			
-			int lenght = width * height;
-			int[] pixels = new int[lenght];
-			
-			tiles = new Tile[lenght];
-			
-			map.getRGB(0, 0, width, height, pixels, 0, width);
-			
-			for(int xx = 0; xx < width; xx++)
-			{
-				for(int yy = 0; yy < height; yy++)
-				{
-					int index = xx + (yy * width);
-					
-					tiles[index] = new Tile(TileType.AIR, xx * 32, yy * 32);
-					
-					switch (pixels[index])
-					{
-							
-						case Cores.LOC_PLAYER:
-							//game.getPlayer().setX(xx * TILE_SIZE);
-							//game.getPlayer().setY(yy * TILE_SIZE);
-							break;
-							
-						default:
-							break;
-					}
-				}
-			}
-			
-		} catch (IOException e)
+			map = ImageIO.read(getClass().getResource("/images/Level.png"));
+		}
+		catch (IOException e)
 		{
 			System.out.println("Falha ao ler o mapa");
 		}
+		
+		initializeWorld();
+	}
+	
+	private void initializeWorld()
+	{
+		width = map.getWidth();
+		height = map.getHeight();
+		
+		int lenght = width * height;
+		int[] pixels = new int[lenght];
+		
+		tiles = new Tile[lenght];
+		
+		map.getRGB(0, 0, width, height, pixels, 0, width);
+		
+		for(int xx = 0; xx < width; xx++)
+		{
+			for(int yy = 0; yy < height; yy++)
+			{
+				final int index = xx + (yy * width);
+				
+				tiles[index] = new Tile(TileType.AIR, xx * TILE_SIZE, yy * TILE_SIZE);
+				
+				checkTiles(index, pixels[index]);
+				checkCollectibles(xx, yy, pixels[index]);
+				checkHumanEntities(xx, yy, pixels[index]);
+			}
+		}
+	}
+	
+	private void checkTiles(int index, int pixel)
+	{
+		for(TileType type : TileType.values())
+		{
+			if(type.getHexaColor() == pixel)
+			{
+				tiles[index].setType(type);
+			}
+		}
+	}
+	
+	private void checkCollectibles(int x, int y, int pixel)
+	{
+	
+	}
+	
+	private void checkHumanEntities(int x, int y, int pixel)
+	{
+	
 	}
 	
 	public void render(Graphics g)
 	{
-		int xs = camera.getX() >> 4;
-		int ys = camera.getY() >> 4;
-		int xf = (camera.getX() + Game.WIDTH) >> 4;
-		int yf = (camera.getX() + Game.HEIGHT) >> 4;
+		int xs = camera.getX() / TILE_SIZE;
+		int ys = camera.getY() / TILE_SIZE;
+		int xf = (camera.getX() + Game.WIDTH) / TILE_SIZE;
+		int yf = (camera.getX() + Game.HEIGHT) / TILE_SIZE;
 		
 		for(int xx = xs; xx <= xf; xx++)
 		{
