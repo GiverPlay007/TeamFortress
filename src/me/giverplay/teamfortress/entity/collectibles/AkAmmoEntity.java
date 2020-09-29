@@ -1,23 +1,35 @@
 package me.giverplay.teamfortress.entity.collectibles;
 
+import java.awt.Graphics;
 import me.giverplay.teamfortress.entity.AmmoEntity;
 import me.giverplay.teamfortress.entity.EntityAmmoType;
-import me.giverplay.teamfortress.entity.NonHumanEntityType;
 
 public class AkAmmoEntity extends AmmoEntity
 {
-  public AkAmmoEntity(int ammo)
+  public AkAmmoEntity(int x, int y, int ammo)
   {
-    super(NonHumanEntityType.COLLECTIBLE_AMMO_AK.getDisplayName(), EntityAmmoType.AK, ammo, 30);
+    super("AK-47 Ammo", EntityAmmoType.AK, ammo, 30, x, y, 19, 13);
   }
   
-  public AkAmmoEntity()
+  public AkAmmoEntity(int x, int y)
   {
-    this(30);
+    this(x, y, 30);
   }
   
   @Override
   public void collect()
+  {
+  
+  }
+  
+  @Override
+  public void tick()
+  {
+  
+  }
+  
+  @Override
+  public void render(Graphics g)
   {
   
   }

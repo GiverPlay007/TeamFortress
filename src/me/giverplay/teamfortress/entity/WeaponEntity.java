@@ -1,6 +1,6 @@
 package me.giverplay.teamfortress.entity;
 
-public abstract class WeaponEntity implements Collectible
+public abstract class WeaponEntity extends Entity implements Collectible
 {
   protected EntityAmmoType type;
   private String name;
