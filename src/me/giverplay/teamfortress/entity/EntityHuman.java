@@ -14,6 +14,7 @@ public class EntityHuman extends Entity
 	private EntityHumanType type;
 	
 	protected List<Node> path;
+	protected volatile BufferedImage[] sprites;
 	
 	private boolean right;
 	private boolean left;
@@ -34,13 +35,15 @@ public class EntityHuman extends Entity
 	{
 		super(x, y, type.getWidth(), type.getHeight(), 0);
 		
+		sprites = type.getIdle();
+		
 		setType(type);
 	}
 	
 	@Override
 	public void tick()
 	{
-		checkJump();
+		//checkJump();
 		
 		if(right)
 		{
@@ -51,13 +54,14 @@ public class EntityHuman extends Entity
 		{
 			x -= speed;
 		}
+		
+		advanceAnim();
 	}
 	
-	@Override
-	public void render(Graphics g)
+	private void advanceAnim()
 	{
-		BufferedImage[] sprites = jumping ? type.getJump() : walking ? type.getWalking() : type.getIdle();
-		
+		sprites = type.getIdle();
+		//sprites = jumping ? type.getJump() : walking ? type.getWalking() : type.getIdle();
 		animFrames++;
 		
 		if(animFrames >= maxAnimFrames)
@@ -70,7 +74,11 @@ public class EntityHuman extends Entity
 				animIndex = 0;
 			}
 		}
-		
+	}
+	
+	@Override
+	public void render(Graphics g)
+	{
 		g.drawImage(sprites[animIndex], getX() - game.getCamera().getX(), getY() - game.getCamera().getY(), width, height, null);
 	}
 	

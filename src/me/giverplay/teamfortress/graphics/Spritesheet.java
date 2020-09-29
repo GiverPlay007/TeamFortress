@@ -8,6 +8,7 @@ import javax.imageio.ImageIO;
 public final class Spritesheet
 {
 	public static final int TILE_SIZE = 32;
+	public static final int SPRITE_SIZE = 40;
 	
 	private static BufferedImage chars;
 	private static BufferedImage map;
@@ -18,45 +19,45 @@ public final class Spritesheet
 	}
 	
 	// -----------------------------------------------------------------------------------------------
-	public static BufferedImage[] mineiroPinkWalking;
-	public static BufferedImage[] mineiroPinkJumping;
-	public static BufferedImage[] mineiroPinkIdle;
+	public static BufferedImage[] mineiroPinkWalking = new BufferedImage[6];
+	public static BufferedImage[] mineiroPinkJumping = new BufferedImage[2];
+	public static BufferedImage[] mineiroPinkIdle = new BufferedImage[4];
 	
-	public static BufferedImage[] mineiroBlueWalking;
-	public static BufferedImage[] mineiroBlueJumping;
-	public static BufferedImage[] mineiroBlueIdle;
+	public static BufferedImage[] mineiroBlueWalking = new BufferedImage[6];
+	public static BufferedImage[] mineiroBlueJumping = new BufferedImage[2];
+	public static BufferedImage[] mineiroBlueIdle = new BufferedImage[4];
 	
-	public static BufferedImage[] soldadoPinkWalking;
-	public static BufferedImage[] soldadoPinkJumping;
-	public static BufferedImage[] soldadoPinkIdle;
+	public static BufferedImage[] soldadoPinkWalking = new BufferedImage[6];
+	public static BufferedImage[] soldadoPinkJumping = new BufferedImage[2];
+	public static BufferedImage[] soldadoPinkIdle = new BufferedImage[4];
 	
-	public static BufferedImage[] soldadoBlueWalking;
-	public static BufferedImage[] soldadoBlueJumping;
-	public static BufferedImage[] soldadoBlueIdle;
+	public static BufferedImage[] soldadoBlueWalking = new BufferedImage[6];
+	public static BufferedImage[] soldadoBlueJumping = new BufferedImage[2];
+	public static BufferedImage[] soldadoBlueIdle = new BufferedImage[4];
 	
-	public static BufferedImage[] fuzileiroPinkWalking;
-	public static BufferedImage[] fuzileiroPinkJumping;
-	public static BufferedImage[] fuzileiroPinkIdle;
+	public static BufferedImage[] fuzileiroPinkWalking = new BufferedImage[6];
+	public static BufferedImage[] fuzileiroPinkJumping = new BufferedImage[2];
+	public static BufferedImage[] fuzileiroPinkIdle = new BufferedImage[4];
 	
-	public static BufferedImage[] fuzileiroBlueWalking;
-	public static BufferedImage[] fuzileiroBlueJumping;
-	public static BufferedImage[] fuzileiroBlueIdle;
+	public static BufferedImage[] fuzileiroBlueWalking = new BufferedImage[6];
+	public static BufferedImage[] fuzileiroBlueJumping = new BufferedImage[2];
+	public static BufferedImage[] fuzileiroBlueIdle = new BufferedImage[4];
 	
-	public static BufferedImage[] carecaPinkWalking;
-	public static BufferedImage[] carecaPinkJumping;
-	public static BufferedImage[] carecaPinkIdle;
+	public static BufferedImage[] carecaPinkWalking = new BufferedImage[6];
+	public static BufferedImage[] carecaPinkJumping = new BufferedImage[2];
+	public static BufferedImage[] carecaPinkIdle = new BufferedImage[4];
 	
-	public static BufferedImage[] carecaBlueWalking;
-	public static BufferedImage[] carecaBlueJumping;
-	public static BufferedImage[] carecaBlueIdle;
+	public static BufferedImage[] carecaBlueWalking = new BufferedImage[6];
+	public static BufferedImage[] carecaBlueJumping = new BufferedImage[2];
+	public static BufferedImage[] carecaBlueIdle = new BufferedImage[4];
 	
-	public static BufferedImage[] terroristaPinkWalking;
-	public static BufferedImage[] terroristaPinkJumping;
-	public static BufferedImage[] terroristaPinkIdle;
+	public static BufferedImage[] terroristaPinkWalking = new BufferedImage[6];
+	public static BufferedImage[] terroristaPinkJumping = new BufferedImage[2];
+	public static BufferedImage[] terroristaPinkIdle = new BufferedImage[4];
 	
-	public static BufferedImage[] terroristaBlueWalking;
-	public static BufferedImage[] terroristaBlueJumping;
-	public static BufferedImage[] terroristaBlueIdle;
+	public static BufferedImage[] terroristaBlueWalking = new BufferedImage[6];
+	public static BufferedImage[] terroristaBlueJumping = new BufferedImage[2];
+	public static BufferedImage[] terroristaBlueIdle = new BufferedImage[4];
 	
 	public static BufferedImage TILE_WHITE_BRICKS;
 	public static BufferedImage TILE_WOODEN_BOX;
@@ -111,5 +112,59 @@ public final class Spritesheet
 		AMMO_REVOLVER = map.getSubimage(25, 74, 8, 5);
 		
 		LIFE_PACK = map.getSubimage(36, 84, 10, 10);
+		
+		for(int i = 0; i < 4; i++)
+		{
+			mineiroPinkIdle[i] = chars.getSubimage(i * SPRITE_SIZE, 0, SPRITE_SIZE, SPRITE_SIZE);
+			mineiroBlueIdle[i] = chars.getSubimage(160 + i * SPRITE_SIZE, 0, SPRITE_SIZE, SPRITE_SIZE);
+			
+			fuzileiroPinkIdle[i] = chars.getSubimage(i * SPRITE_SIZE, 141, SPRITE_SIZE, SPRITE_SIZE);
+			fuzileiroBlueIdle[i] = chars.getSubimage(160 + i * SPRITE_SIZE, 141, SPRITE_SIZE, SPRITE_SIZE);
+			
+			carecaPinkIdle[i] = chars.getSubimage(i * SPRITE_SIZE, 285, SPRITE_SIZE, SPRITE_SIZE);
+			carecaBlueIdle[i] = chars.getSubimage(160 + i * SPRITE_SIZE, 285, SPRITE_SIZE, SPRITE_SIZE);
+			
+			soldadoPinkIdle[i] = chars.getSubimage(i * SPRITE_SIZE, 429, SPRITE_SIZE, SPRITE_SIZE);
+			soldadoBlueIdle[i] = chars.getSubimage(160 + i * SPRITE_SIZE, 429, SPRITE_SIZE, SPRITE_SIZE);
+			
+			terroristaPinkIdle[i] = chars.getSubimage(i * SPRITE_SIZE, 573, SPRITE_SIZE, SPRITE_SIZE);
+			terroristaBlueIdle[i] = chars.getSubimage(160 + i * SPRITE_SIZE, 573, SPRITE_SIZE, SPRITE_SIZE);
+		}
+		
+		for(int i = 0; i < 6; i++)
+		{
+			mineiroPinkWalking[i] = chars.getSubimage(i * SPRITE_SIZE, 93, SPRITE_SIZE, SPRITE_SIZE);
+			mineiroBlueWalking[i] = chars.getSubimage(240 + i * SPRITE_SIZE, 93, SPRITE_SIZE, SPRITE_SIZE);
+			
+			fuzileiroPinkWalking[i] = chars.getSubimage(i * SPRITE_SIZE, 237, SPRITE_SIZE, SPRITE_SIZE);
+			fuzileiroBlueWalking[i] = chars.getSubimage(240 + i * SPRITE_SIZE, 237, SPRITE_SIZE, SPRITE_SIZE);
+			
+			carecaPinkWalking[i] = chars.getSubimage(i * SPRITE_SIZE, 381, SPRITE_SIZE, SPRITE_SIZE);
+			carecaBlueWalking[i] = chars.getSubimage(240 + i * SPRITE_SIZE, 381, SPRITE_SIZE, SPRITE_SIZE);
+			
+			soldadoPinkWalking[i] = chars.getSubimage(i * SPRITE_SIZE, 525, SPRITE_SIZE, SPRITE_SIZE);
+			soldadoBlueWalking[i] = chars.getSubimage(240 + i * SPRITE_SIZE, 525, SPRITE_SIZE, SPRITE_SIZE);
+			
+			terroristaPinkWalking[i] = chars.getSubimage(i * SPRITE_SIZE, 669, SPRITE_SIZE, SPRITE_SIZE);
+			terroristaBlueWalking[i] = chars.getSubimage(240 + i * SPRITE_SIZE, 669, SPRITE_SIZE, SPRITE_SIZE);
+		}
+		
+		for(int i = 0; i < 2; i++)
+		{
+			mineiroPinkJumping[i] = chars.getSubimage(i * SPRITE_SIZE, 45, SPRITE_SIZE, SPRITE_SIZE);
+			mineiroBlueJumping[i] = chars.getSubimage(80 + i * SPRITE_SIZE, 45, SPRITE_SIZE, SPRITE_SIZE);
+			
+			fuzileiroPinkJumping[i] = chars.getSubimage(i * SPRITE_SIZE, 189, SPRITE_SIZE, SPRITE_SIZE);
+			fuzileiroBlueJumping[i] = chars.getSubimage(80 + i * SPRITE_SIZE, 189, SPRITE_SIZE, SPRITE_SIZE);
+			
+			carecaPinkJumping[i] = chars.getSubimage(i * SPRITE_SIZE, 331, SPRITE_SIZE, SPRITE_SIZE);
+			carecaBlueJumping[i] = chars.getSubimage(80 + i * SPRITE_SIZE, 331, SPRITE_SIZE, SPRITE_SIZE);
+			
+			soldadoPinkJumping[i] = chars.getSubimage(i * SPRITE_SIZE, 475, SPRITE_SIZE, SPRITE_SIZE);
+			soldadoBlueJumping[i] = chars.getSubimage(80 + i * SPRITE_SIZE, 475, SPRITE_SIZE, SPRITE_SIZE);
+			
+			terroristaPinkJumping[i] = chars.getSubimage(i * SPRITE_SIZE, 620, SPRITE_SIZE, SPRITE_SIZE);
+			terroristaBlueJumping[i] = chars.getSubimage(80 + i * SPRITE_SIZE, 620, SPRITE_SIZE, SPRITE_SIZE);
+		}
 	}
 }

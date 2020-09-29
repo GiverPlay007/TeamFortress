@@ -30,22 +30,23 @@ import static me.giverplay.teamfortress.graphics.Spritesheet.terroristaBlueWalki
 import static me.giverplay.teamfortress.graphics.Spritesheet.terroristaPinkIdle;
 import static me.giverplay.teamfortress.graphics.Spritesheet.terroristaPinkJumping;
 import static me.giverplay.teamfortress.graphics.Spritesheet.terroristaPinkWalking;
+import static me.giverplay.teamfortress.graphics.Spritesheet.SPRITE_SIZE;
 
 
 import java.awt.image.BufferedImage;
 
 public enum EntityHumanType
 {
-  MINEIRO_BLUE("Mineiro", mineiroBlueIdle, mineiroBlueWalking, mineiroBlueJumping, 16, 16),
-  TERRORISTA_BLUE("Terrorista", terroristaBlueIdle, terroristaBlueWalking, terroristaBlueJumping, 16, 16),
-  FUZILEIRO_BLUE("Fuzileiro", fuzileiroBlueIdle, fuzileiroBlueWalking, fuzileiroBlueJumping, 16, 16),
-  SOLDADO_BLUE("Soldado", soldadoBlueIdle, soldadoBlueWalking, soldadoBlueJumping, 16, 16),
-  CARECA_BLUE("Careca", carecaBlueIdle, carecaBlueWalking, carecaBlueJumping, 16, 16),
-  MINEIRO_PINK("Mineiro", mineiroPinkIdle, mineiroPinkWalking, mineiroPinkJumping,16, 16),
-  TERRORISTA_PINK("Terrorista", terroristaPinkIdle, terroristaPinkWalking, terroristaPinkJumping, 16, 16),
-  FUZILEIRO_PINK("Fuzileiro", fuzileiroPinkIdle, fuzileiroPinkWalking, fuzileiroPinkJumping, 16, 16),
-  SOLDADO_PINK("Soldado", soldadoPinkIdle, soldadoPinkWalking, soldadoPinkJumping, 16, 16),
-  CARECA_PINK("Careca", carecaPinkIdle, carecaPinkWalking, carecaPinkJumping,16, 16);
+  MINEIRO_BLUE("Mineiro", mineiroBlueIdle, mineiroBlueWalking, mineiroBlueJumping, SPRITE_SIZE, SPRITE_SIZE),
+  TERRORISTA_BLUE("Terrorista", terroristaBlueIdle, terroristaBlueWalking, terroristaBlueJumping, SPRITE_SIZE, SPRITE_SIZE),
+  FUZILEIRO_BLUE("Fuzileiro", fuzileiroBlueIdle, fuzileiroBlueWalking, fuzileiroBlueJumping, SPRITE_SIZE, SPRITE_SIZE),
+  SOLDADO_BLUE("Soldado", soldadoBlueIdle, soldadoBlueWalking, soldadoBlueJumping, SPRITE_SIZE, SPRITE_SIZE),
+  CARECA_BLUE("Careca", carecaBlueIdle, carecaBlueWalking, carecaBlueJumping, SPRITE_SIZE, SPRITE_SIZE),
+  MINEIRO_PINK("Mineiro", mineiroPinkIdle, mineiroPinkWalking, mineiroPinkJumping,SPRITE_SIZE, SPRITE_SIZE),
+  TERRORISTA_PINK("Terrorista", terroristaPinkIdle, terroristaPinkWalking, terroristaPinkJumping, SPRITE_SIZE, SPRITE_SIZE),
+  FUZILEIRO_PINK("Fuzileiro", fuzileiroPinkIdle, fuzileiroPinkWalking, fuzileiroPinkJumping, SPRITE_SIZE, SPRITE_SIZE),
+  SOLDADO_PINK("Soldado", soldadoPinkIdle, soldadoPinkWalking, soldadoPinkJumping, SPRITE_SIZE, SPRITE_SIZE),
+  CARECA_PINK("Careca", carecaPinkIdle, carecaPinkWalking, carecaPinkJumping,SPRITE_SIZE, SPRITE_SIZE);
   
   private final String name;
   private final BufferedImage[] IDLE, JUMP, WALKING;

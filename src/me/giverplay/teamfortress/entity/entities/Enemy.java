@@ -20,18 +20,14 @@ public class Enemy extends EntityHuman
 	@Override
 	public void tick()
 	{
+		super.tick();
+		
 		if(moveAllowed(getX() + (changeDir ? -Spritesheet.TILE_SIZE : Spritesheet.TILE_SIZE), (int) (y + 1))
 				|| !moveAllowed(getX() + (changeDir ? (int) -speed : (int) -speed), getY()))
 		{
 			changeDir = !changeDir;
 		}
 		
-		moveX(changeDir ? -speed : speed);
-	}
-	
-	@Override
-	public void destroy()
-	{
-		super.destroy();
+		//moveX(changeDir ? -speed : speed);
 	}
 }

@@ -14,6 +14,9 @@ import java.util.List;
 import javax.swing.JFrame;
 
 import me.giverplay.teamfortress.entity.Entity;
+import me.giverplay.teamfortress.entity.EntityHuman;
+import me.giverplay.teamfortress.entity.EntityHumanType;
+import me.giverplay.teamfortress.entity.entities.Enemy;
 import me.giverplay.teamfortress.entity.entities.Player;
 import me.giverplay.teamfortress.graphics.FontUtils;
 import me.giverplay.teamfortress.graphics.Spritesheet;
@@ -24,9 +27,8 @@ public class Game extends Canvas
 {
 	private static final long serialVersionUID = 1L;
 	
-	public static final int WIDTH = 320;
-	public static final int HEIGHT = 240;
-	public static final int SCALE = 2;
+	public static final int WIDTH = 640;
+	public static final int HEIGHT = 480;
 	
 	private List<Entity> entities;
 	
@@ -39,10 +41,9 @@ public class Game extends Canvas
 	private Player player;
 	private UI ui;
 	
-	private BufferedImage image;
 	private JFrame frame;
 	
-	private boolean isRunning = false;
+	private volatile boolean isRunning = false;
 	private boolean showMessage = true;
 	
 	private int messageFrames = 0;
@@ -56,14 +57,14 @@ public class Game extends Canvas
 	public static void main(String[] args)
 	{
 		Spritesheet.init();
-		Sound.init();
+		//Sound.init();
 		
 		new Game();
 	}
 	
 	public Game()
 	{
-		setPreferredSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
+		setPreferredSize(new Dimension(WIDTH, HEIGHT));
 		
 		game = this;
 		setupFrame();
@@ -91,7 +92,6 @@ public class Game extends Canvas
 	private void setupAssets()
 	{
 		ui = new UI();
-		image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_BGR);
 		camera = new Camera(0, 0);
 		entities = new ArrayList<>();
 	}
@@ -101,7 +101,7 @@ public class Game extends Canvas
 		state = State.LOADING;
 		entities.clear();
 		
-		player = new Player(0, 0);
+		player = new Player(50, 50);
 		world = new World();
 		
 		entities.add(player);
@@ -112,14 +112,44 @@ public class Game extends Canvas
 	{
 		startGame();
 		isRunning = true;
+		
+		try
+    {
+		Thread.sleep(100);
+    }catch(InterruptedException interruptedException){}
+		
 		task = new GameTask(this);
+		
+		teste();
 	}
+	
+	void teste()
+  {
+    entities.add(new Enemy(100, 100, EntityHumanType.MINEIRO_BLUE));
+    entities.add(new Enemy(140, 100, EntityHumanType.MINEIRO_PINK));
+    
+    entities.add(new Enemy(180, 100, EntityHumanType.FUZILEIRO_BLUE));
+    entities.add(new Enemy(220, 100, EntityHumanType.FUZILEIRO_PINK));
+    
+    entities.add(new Enemy(100, 140, EntityHumanType.CARECA_BLUE));
+    entities.add(new Enemy(140, 140, EntityHumanType.CARECA_PINK));
+    
+    entities.add(new Enemy(180, 140, EntityHumanType.SOLDADO_BLUE));
+    entities.add(new Enemy(220, 140, EntityHumanType.SOLDADO_PINK));
+    
+    entities.add(new Enemy(140, 180, EntityHumanType.TERRORISTA_BLUE));
+    entities.add(new Enemy(180, 180, EntityHumanType.TERRORISTA_PINK));
+    state = State.NORMAL;
+  }
 	
 	public void tick()
 	{
 		if(state.doGameTick())
 		{
-			for(int i = 0; i < entities.size(); i++) entities.get(i).tick();
+			for(int i = 0; i < entities.size(); i++)
+			{
+				entities.get(i).tick();
+			}
 		}
 		
 		if(state.doMenuTick())
@@ -143,20 +173,16 @@ public class Game extends Canvas
 			return;
 		}
 		
-		Graphics g = image.getGraphics();
+		Graphics g = bs.getDrawGraphics();
 		
 		g.setColor(new Color(110, 200, 255));
-		g.fillRect(0, 0, WIDTH * SCALE, HEIGHT * SCALE);
+		g.fillRect(0, 0, WIDTH, HEIGHT);
 		
 		world.render(g);
 		
 		entities.sort(Entity.sortDepth);
 		
 		for(Entity entity : entities) entity.render(g);
-		
-		g.dispose();
-		g = bs.getDrawGraphics();
-		g.drawImage(image, 0, 0, WIDTH * SCALE, HEIGHT * SCALE, null);
 		
 		renderSmooth(g);
 		
@@ -165,12 +191,12 @@ public class Game extends Canvas
 			Graphics2D g2 = (Graphics2D) g;
 			
 			g2.setColor(new Color(0, 0, 0, 100));
-			g2.fillRect(0, 0, WIDTH * SCALE, HEIGHT * SCALE);
+			g2.fillRect(0, 0, WIDTH, HEIGHT);
 			
 			String txt = state == State.GAME_OVER ? "Game Over" : "Você Venceu!";
 			g.setColor(Color.WHITE);
 			g.setFont(FontUtils.getFont(32, Font.BOLD));
-			g.drawString(txt, (WIDTH * SCALE - g.getFontMetrics(g.getFont()).stringWidth(txt)) / 2, HEIGHT * SCALE / 2);
+			g.drawString(txt, (WIDTH - g.getFontMetrics(g.getFont()).stringWidth(txt)) / 2, HEIGHT / 2);
 			
 			messageFrames++;
 			
@@ -183,7 +209,7 @@ public class Game extends Canvas
 			if(showMessage)
 			{
 				g.setFont(FontUtils.getFont(24, Font.BOLD));
-				g.drawString("> Aperte ENTER para reiniciar <", (WIDTH * SCALE - g.getFontMetrics(g.getFont()).stringWidth("> Aperte ENTER para reiniciar <")) / 2, HEIGHT * SCALE / 2 + 28);
+				g.drawString("> Aperte ENTER para reiniciar <", (WIDTH - g.getFontMetrics(g.getFont()).stringWidth("> Aperte ENTER para reiniciar <")) / 2, HEIGHT / 2 + 28);
 			}
 		}
 		

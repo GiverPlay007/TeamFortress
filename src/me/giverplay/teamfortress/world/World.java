@@ -52,7 +52,7 @@ public class World
 				{
 					int index = xx + (yy * width);
 					
-					tiles[index] = null;
+					tiles[index] = new Tile(TileType.AIR, xx * 32, yy * 32);
 					
 					switch (pixels[index])
 					{

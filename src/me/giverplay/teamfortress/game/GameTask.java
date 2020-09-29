@@ -17,8 +17,8 @@ public class GameTask implements Runnable
     this.game = game;
     
     new Thread(this, "Game Looping - Main").start();
-    new Thread(() -> { while(this.game.isRunning()) tick(); }, "Game Looping - Tick").start();
-    new Thread(() -> { while(this.game.isRunning()) render(); }, "Game Looping - Render").start();
+    new Thread(() -> { while(this.game.isRunning()) this.tick(); }, "Game Looping - Tick").start();
+    new Thread(() -> { while(this.game.isRunning()) this.render(); }, "Game Looping - Render").start();
   }
   
   private void tick()
