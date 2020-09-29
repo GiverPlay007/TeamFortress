@@ -4,16 +4,16 @@ import java.awt.Graphics;
 import me.giverplay.teamfortress.entity.EntityAmmoType;
 import me.giverplay.teamfortress.entity.WeaponEntity;
 
-public class RevolverWeaponEntity extends WeaponEntity
+public class RocketLauncherWeaponEntity extends WeaponEntity
 {
-  public RevolverWeaponEntity(int x, int y, int ammo)
+  public RocketLauncherWeaponEntity(int x, int y, int ammo)
   {
-    super("Revolver", EntityAmmoType.REVOLVER, 7, ammo, x, y, 21, 15);
+    super("Rocket Launcher", EntityAmmoType.RPG, 1, ammo, x, y, 47, 21);
   }
   
-  public RevolverWeaponEntity(int x, int y)
+  public RocketLauncherWeaponEntity(int x, int y)
   {
-    this(x, y, 7);
+    this(x, y, 1);
   }
   
   @Override

@@ -8,8 +8,10 @@ public abstract class WeaponEntity extends Entity implements Collectible
   protected int maxAmmo;
   protected int ammo;
   
-  public WeaponEntity(String name, EntityAmmoType type, int maxAmmo, int ammo)
+  public WeaponEntity(String name, EntityAmmoType type, int maxAmmo, int ammo, int x, int y, int width, int height)
   {
+    super(x, y, width, height, 0);
+    
     this.maxAmmo = maxAmmo;
     this.ammo = ammo;
     this.name = name;
