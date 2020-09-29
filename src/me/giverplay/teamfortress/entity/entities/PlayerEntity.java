@@ -5,11 +5,11 @@ import me.giverplay.teamfortress.game.Game;
 import me.giverplay.teamfortress.entity.EntityHuman;
 import me.giverplay.teamfortress.game.Camera;
 
-public class Player extends EntityHuman
+public class PlayerEntity extends EntityHuman
 {
 	private Camera camera;
 	
-	public Player(int x, int y)
+	public PlayerEntity(int x, int y)
 	{
 		super(EntityHumanType.FUZILEIRO_BLUE, x, y);
 		

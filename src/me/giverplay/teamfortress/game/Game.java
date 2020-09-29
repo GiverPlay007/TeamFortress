@@ -7,17 +7,11 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.swing.JFrame;
-
 import me.giverplay.teamfortress.entity.Entity;
-import me.giverplay.teamfortress.entity.EntityHuman;
-import me.giverplay.teamfortress.entity.EntityHumanType;
-import me.giverplay.teamfortress.entity.entities.Enemy;
-import me.giverplay.teamfortress.entity.entities.Player;
+import me.giverplay.teamfortress.entity.entities.PlayerEntity;
 import me.giverplay.teamfortress.graphics.FontUtils;
 import me.giverplay.teamfortress.graphics.Spritesheet;
 import me.giverplay.teamfortress.graphics.UI;
@@ -38,7 +32,7 @@ public class Game extends Canvas
 	private Camera camera;
 	private State state;
 	private World world;
-	private Player player;
+	private PlayerEntity player;
 	private UI ui;
 	
 	private JFrame frame;
@@ -101,7 +95,7 @@ public class Game extends Canvas
 		state = State.LOADING;
 		entities.clear();
 		
-		player = new Player(50, 50);
+		player = new PlayerEntity(50, 50);
 		world = new World();
 		
 		entities.add(player);
@@ -112,35 +106,8 @@ public class Game extends Canvas
 	{
 		startGame();
 		isRunning = true;
-		
-		try
-    {
-		Thread.sleep(100);
-    }catch(InterruptedException interruptedException){}
-		
 		task = new GameTask(this);
-		
-		teste();
 	}
-	
-	void teste()
-  {
-    entities.add(new Enemy(100, 100, EntityHumanType.MINEIRO_BLUE));
-    entities.add(new Enemy(140, 100, EntityHumanType.MINEIRO_PINK));
-    
-    entities.add(new Enemy(180, 100, EntityHumanType.FUZILEIRO_BLUE));
-    entities.add(new Enemy(220, 100, EntityHumanType.FUZILEIRO_PINK));
-    
-    entities.add(new Enemy(100, 140, EntityHumanType.CARECA_BLUE));
-    entities.add(new Enemy(140, 140, EntityHumanType.CARECA_PINK));
-    
-    entities.add(new Enemy(180, 140, EntityHumanType.SOLDADO_BLUE));
-    entities.add(new Enemy(220, 140, EntityHumanType.SOLDADO_PINK));
-    
-    entities.add(new Enemy(140, 180, EntityHumanType.TERRORISTA_BLUE));
-    entities.add(new Enemy(180, 180, EntityHumanType.TERRORISTA_PINK));
-    state = State.NORMAL;
-  }
 	
 	public void tick()
 	{
@@ -231,7 +198,7 @@ public class Game extends Canvas
 	}
 	
 	
-	public Player getPlayer()
+	public PlayerEntity getPlayer()
 	{
 		return this.player;
 	}

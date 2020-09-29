@@ -6,11 +6,11 @@ import me.giverplay.teamfortress.entity.EntityHuman;
 import me.giverplay.teamfortress.entity.EntityHumanType;
 import me.giverplay.teamfortress.graphics.Spritesheet;
 
-public class Enemy extends EntityHuman
+public class EnemyEntity extends EntityHuman
 {
 	private boolean changeDir = false;
 	
-	public Enemy(double x, double y, EntityHumanType type)
+	public EnemyEntity(double x, double y, EntityHumanType type)
 	{
 		super(type, x, y);
 		

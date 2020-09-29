@@ -8,9 +8,9 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import me.giverplay.teamfortress.entity.NonHumanEntityType;
 import me.giverplay.teamfortress.game.Game;
 import me.giverplay.teamfortress.game.Camera;
-import me.giverplay.teamfortress.graphics.Cores;
 
 public class World
 {
@@ -80,7 +80,14 @@ public class World
 	
 	private void checkCollectibles(int x, int y, int pixel)
 	{
-	
+		for(NonHumanEntityType type : NonHumanEntityType.values())
+		{
+			if(pixel == type.getHexaColor())
+			{
+				game.getEntities().add(type.getNewInstance(x, y));
+				break;
+			}
+		}
 	}
 	
 	private void checkHumanEntities(int x, int y, int pixel)
