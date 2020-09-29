@@ -7,7 +7,7 @@ import javax.imageio.ImageIO;
 
 public final class Spritesheet
 {
-	public static final int TILE_SIZE = 16;
+	public static final int TILE_SIZE = 32;
 	
 	private static BufferedImage chars;
 	private static BufferedImage map;
@@ -91,6 +91,25 @@ public final class Spritesheet
 		{
 			System.out.println("Erro na leitura do Spritesheet");
 			e.printStackTrace();
+			System.exit(1);
 		}
+		
+		TILE_PURPLE_BOX   = map.getSubimage(0, 0, 16, 16);
+		TILE_WOODEN_BOX   = map.getSubimage(16, 0, 16, 16);
+		TILE_WHITE_BRICKS = map.getSubimage(32, 0, 16, 16);
+		TILE_BRICKS       = map.getSubimage(48, 0, 16, 16);
+		TILE_STONE        = map.getSubimage(64, 0, 16, 16);
+		
+		WEAPON_RPG      = map.getSubimage(0, 16, 47, 21);
+		WEAPON_SHOTGUN  = map.getSubimage(0, 37, 36, 13);
+		WEAPON_AK       = map.getSubimage(0, 50, 36, 16);
+		WEAPON_REVOLVER = map.getSubimage(0, 66, 21, 15);
+		
+		AMMO_RPG      = map.getSubimage(50, 22, 17, 15);
+		AMMO_SHOTGUN  = map.getSubimage(41, 41, 9, 6);
+		AMMO_AK       = map.getSubimage(38, 52, 19, 13);
+		AMMO_REVOLVER = map.getSubimage(25, 74, 8, 5);
+		
+		LIFE_PACK = map.getSubimage(36, 84, 10, 10);
 	}
 }

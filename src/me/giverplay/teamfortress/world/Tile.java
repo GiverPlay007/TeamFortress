@@ -2,6 +2,7 @@ package me.giverplay.teamfortress.world;
 
 import java.awt.Graphics;
 import me.giverplay.teamfortress.game.Game;
+import me.giverplay.teamfortress.graphics.Spritesheet;
 
 public class Tile
 {
@@ -25,7 +26,7 @@ public class Tile
 			return;
 		}
 		
-		g.drawImage(type.getSprite(), x - game.getCamera().getX(), y - game.getCamera().getY(), null);
+		g.drawImage(type.getSprite(), x - game.getCamera().getX(), y - game.getCamera().getY(), Spritesheet.TILE_SIZE, Spritesheet.TILE_SIZE, null);
 	}
 	
 	public boolean isRigid()
