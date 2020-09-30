@@ -3,6 +3,7 @@ package me.giverplay.teamfortress.entity.collectibles;
 import java.awt.Graphics;
 import me.giverplay.teamfortress.entity.Collectible;
 import me.giverplay.teamfortress.entity.Entity;
+import me.giverplay.teamfortress.graphics.Spritesheet;
 
 public class LifepackEntity extends Entity implements Collectible
 {
@@ -26,6 +27,6 @@ public class LifepackEntity extends Entity implements Collectible
   @Override
   public void render(Graphics g)
   {
-  
+    g.drawImage(Spritesheet.LIFE_PACK, getX(), getY(), width, height, null);
   }
 }

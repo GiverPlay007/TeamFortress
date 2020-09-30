@@ -1,19 +1,25 @@
 package me.giverplay.teamfortress.entity.collectibles;
 
-import java.awt.Graphics;
 import me.giverplay.teamfortress.entity.EntityAmmoType;
 import me.giverplay.teamfortress.entity.WeaponEntity;
+import me.giverplay.teamfortress.graphics.Spritesheet;
 
 public class RocketLauncherWeaponEntity extends WeaponEntity
 {
   public RocketLauncherWeaponEntity(int x, int y, int ammo)
   {
-    super("Rocket Launcher", EntityAmmoType.RPG, 1, ammo, x, y, 47, 21);
+    super("Rocket Launcher", EntityAmmoType.RPG, 1, ammo, x, y, 47, 21, Spritesheet.WEAPON_RPG);
   }
   
   public RocketLauncherWeaponEntity(int x, int y)
   {
     this(x, y, 1);
+  }
+  
+  @Override
+  public boolean shoot()
+  {
+    return false;
   }
   
   @Override
@@ -24,12 +30,6 @@ public class RocketLauncherWeaponEntity extends WeaponEntity
   
   @Override
   public void tick()
-  {
-  
-  }
-  
-  @Override
-  public void render(Graphics g)
   {
   
   }

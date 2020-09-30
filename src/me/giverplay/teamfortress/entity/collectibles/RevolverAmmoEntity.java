@@ -1,14 +1,14 @@
 package me.giverplay.teamfortress.entity.collectibles;
 
-import java.awt.Graphics;
 import me.giverplay.teamfortress.entity.AmmoEntity;
 import me.giverplay.teamfortress.entity.EntityAmmoType;
+import me.giverplay.teamfortress.graphics.Spritesheet;
 
 public class RevolverAmmoEntity extends AmmoEntity
 {
   public RevolverAmmoEntity(int x, int y, int ammo)
   {
-    super("Revolver Ammo", EntityAmmoType.REVOLVER, ammo, 7, x, y, 5, 8);
+    super("Revolver Ammo", EntityAmmoType.REVOLVER, ammo, 7, x, y, 5, 8, Spritesheet.AMMO_REVOLVER);
   }
   
   public RevolverAmmoEntity(int x, int y)
@@ -24,12 +24,6 @@ public class RevolverAmmoEntity extends AmmoEntity
   
   @Override
   public void tick()
-  {
-  
-  }
-  
-  @Override
-  public void render(Graphics g)
   {
   
   }
