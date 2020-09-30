@@ -102,7 +102,7 @@ public class World
 				
 			case Cores.LOC_ENEMY_FRANCO:
 				EnemyEntity enemy = new EnemyEntity(x * TILE_SIZE, y * TILE_SIZE);
-				// TODO
+				// TODO Colocar RPG no cara
 				break;
 				
 			case Cores.LOC_PLAYER:

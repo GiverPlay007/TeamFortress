@@ -22,7 +22,7 @@ public class EntityHuman extends Entity
 	private boolean jumping;
 	private boolean jump;
 	
-	protected double speed;
+	protected double speed = 2;
 	
 	private double gravity = 0.4;
 	private double vspd = 0;
@@ -44,24 +44,13 @@ public class EntityHuman extends Entity
 	public void tick()
 	{
 		checkJump();
-		
-		if(right)
-		{
-			x += speed;
-		}
-		
-		if(left)
-		{
-			x -= speed;
-		}
-		
+		checkWalk();
 		advanceAnim();
 	}
 	
 	private void advanceAnim()
 	{
-		sprites = type.getWalking();
-		//sprites = jumping ? type.getJump() : walking ? type.getWalking() : type.getIdle();
+		sprites = jumping ? type.getJump() : walking ? type.getWalking() : type.getIdle();
 		animFrames++;
 		
 		if(animFrames >= maxAnimFrames)
@@ -79,6 +68,12 @@ public class EntityHuman extends Entity
 	@Override
 	public void render(Graphics g)
 	{
+		// Little hack
+		if(animIndex >= sprites.length)
+		{
+			animIndex = 0;
+		}
+		
 		g.drawImage(sprites[animIndex], getX() - game.getCamera().getX(), getY() - game.getCamera().getY(), width, height, null);
 	}
 	
@@ -96,7 +91,6 @@ public class EntityHuman extends Entity
 		if (jump && !moveAllowed(getX(), (int) (y + 1)) && moveAllowed(getX(), (int) (y -1)))
 		{
 			vspd = -6;
-			jumping = true;
 		}
 		
 		if (!moveAllowed((int) x, (int) (y + vspd)))
@@ -121,38 +115,32 @@ public class EntityHuman extends Entity
 		}
 		
 		y = y + vspd;
+		jump = false;
 		
+		jumping = vspd != 0;
+	}
+	
+	protected void checkWalk()
+	{
 		walking = false;
 		
-		if (!(right && left))
+		if (right)
 		{
-			if (right)
+			if (moveAllowed((int) (x + speed), getY()))
 			{
-				if (moveAllowed((int) (x + speed), getY()))
-				{
-					moveX(speed);
-					
-					if (!jumping)
-					{
-						walking = true;
-					}
-				}
-				
-			} else if (left)
-			{
-				if (moveAllowed((int) (x - speed), getY()))
-				{
-					moveX(-speed);
-					
-					if (!jumping)
-					{
-						walking = true;
-					}
-				}
+				moveX(speed);
+				walking = true;
 			}
 		}
 		
-		jump = false;
+		if (left)
+		{
+			if (moveAllowed((int) (x - speed), getY()))
+			{
+				moveX(-speed);
+				walking = true;
+			}
+		}
 	}
 	
 	public void followPath(List<Node> path)

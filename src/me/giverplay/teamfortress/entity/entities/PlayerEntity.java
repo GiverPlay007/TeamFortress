@@ -4,6 +4,7 @@ import me.giverplay.teamfortress.entity.EntityHumanType;
 import me.giverplay.teamfortress.game.Game;
 import me.giverplay.teamfortress.entity.EntityHuman;
 import me.giverplay.teamfortress.game.Camera;
+import me.giverplay.teamfortress.game.Keys;
 import me.giverplay.teamfortress.graphics.Spritesheet;
 
 public class PlayerEntity extends EntityHuman
@@ -22,6 +23,14 @@ public class PlayerEntity extends EntityHuman
 	@Override
 	public void tick()
 	{
+	  moveRight(Keys.right);
+	  moveLeft(Keys.left);
+   
+	  if(Keys.jump)
+    {
+      jump();
+    }
+	  
 		super.tick();
 		updateCamera();
 	}

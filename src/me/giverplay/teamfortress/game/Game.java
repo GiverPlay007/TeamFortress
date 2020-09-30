@@ -80,6 +80,8 @@ public class Game extends Canvas
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
+		
+		Keys.setup(this);
 	}
 	
 	private void setupAssets()
