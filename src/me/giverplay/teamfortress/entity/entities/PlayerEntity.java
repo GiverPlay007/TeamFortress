@@ -4,6 +4,7 @@ import me.giverplay.teamfortress.entity.EntityHumanType;
 import me.giverplay.teamfortress.game.Game;
 import me.giverplay.teamfortress.entity.EntityHuman;
 import me.giverplay.teamfortress.game.Camera;
+import me.giverplay.teamfortress.graphics.Spritesheet;
 
 public class PlayerEntity extends EntityHuman
 {
@@ -21,12 +22,13 @@ public class PlayerEntity extends EntityHuman
 	@Override
 	public void tick()
 	{
+		super.tick();
 		updateCamera();
 	}
 	
 	private void updateCamera()
 	{
-		camera.setX(Camera.clamp(this.getX() - (Game.WIDTH / 2), 0, game.getWorld().getWidth() * 16 - Game.WIDTH));
-		camera.setY(Camera.clamp(this.getY() - (Game.HEIGHT / 2), 0, game.getWorld().getHeight() * 16 - Game.HEIGHT));
+		camera.setX(Camera.clamp(this.getX() - (Game.WIDTH / 2), 0, game.getWorld().getWidth() * Spritesheet.TILE_SIZE - Game.WIDTH));
+		camera.setY(Camera.clamp(this.getY() - (Game.HEIGHT / 2), 0, game.getWorld().getHeight() * Spritesheet.TILE_SIZE - Game.HEIGHT));
 	}
 }

@@ -116,18 +116,20 @@ public class World
 		int xs = camera.getX() / TILE_SIZE;
 		int ys = camera.getY() / TILE_SIZE;
 		int xf = (camera.getX() + Game.WIDTH) / TILE_SIZE;
-		int yf = (camera.getX() + Game.HEIGHT) / TILE_SIZE;
+		int yf = (camera.getY() + Game.HEIGHT) / TILE_SIZE;
 		
-		for(int xx = xs; xx <= xf; xx++)
+		for (int xx = xs; xx <= xf; xx++)
 		{
-			for(int yy = ys; yy <= yf; yy++)
+			for (int yy = ys; yy <= yf; yy++)
 			{
-				if(xx < xs || yy < ys || xx >= width || yy >= height)
+				if (xx < xs || yy < ys || xx >= width || yy >= height)
+				{
 					continue;
+				}
 				
 				Tile tile = tiles[xx + yy * width];
 				
-				if(tile != null)
+				if (tile != null)
 					tile.render(g);
 			}
 		}

@@ -21,7 +21,7 @@ public class Game extends Canvas
 {
 	private static final long serialVersionUID = 1L;
 	
-	public static final int WIDTH = 640;
+	public static final int WIDTH = 720;
 	public static final int HEIGHT = 480;
 	
 	private List<Entity> entities;
@@ -70,10 +70,9 @@ public class Game extends Canvas
 		start();
 	}
 	
-	
 	private void setupFrame()
 	{
-		frame = new JFrame("Game 04 - Super Mario Clone");
+		frame = new JFrame("Team Fortress Clone");
 		frame.add(this);
 		frame.setResizable(false);
 		frame.setUndecorated(false);

@@ -7,7 +7,7 @@ import javax.imageio.ImageIO;
 
 public final class Spritesheet
 {
-	public static final int TILE_SIZE = 32;
+	public static final int TILE_SIZE = 40;
 	public static final int SPRITE_SIZE = 40;
 	
 	private static BufferedImage chars;
@@ -65,6 +65,7 @@ public final class Spritesheet
 	public static BufferedImage TILE_BRICKS;
 	public static BufferedImage TILE_STONE;
 	public static BufferedImage TILE_GRASS;
+	public static BufferedImage TILE_DIRT;
 	
 	public static BufferedImage LIFE_PACK;
 	
@@ -100,6 +101,8 @@ public final class Spritesheet
 		TILE_WHITE_BRICKS = map.getSubimage(32, 0, 16, 16);
 		TILE_BRICKS       = map.getSubimage(48, 0, 16, 16);
 		TILE_STONE        = map.getSubimage(64, 0, 16, 16);
+		TILE_DIRT         = map.getSubimage(80, 0, 16, 16);
+		TILE_GRASS        = map.getSubimage(96, 0, 16, 16);
 		
 		WEAPON_RPG      = map.getSubimage(0, 16, 47, 21);
 		WEAPON_SHOTGUN  = map.getSubimage(0, 37, 36, 13);

@@ -43,7 +43,7 @@ public class EntityHuman extends Entity
 	@Override
 	public void tick()
 	{
-		//checkJump();
+		checkJump();
 		
 		if(right)
 		{
