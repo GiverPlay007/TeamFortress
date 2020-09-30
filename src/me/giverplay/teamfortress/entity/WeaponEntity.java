@@ -1,5 +1,6 @@
 package me.giverplay.teamfortress.entity;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
@@ -9,12 +10,14 @@ public abstract class WeaponEntity extends Entity implements Collectible
   private BufferedImage sprite;
   private String name;
   
+  protected boolean collected;
+  
   protected int maxAmmo;
   protected int ammo;
   
   public WeaponEntity(String name, EntityAmmoType type, int maxAmmo, int ammo, int x, int y, int width, int height, BufferedImage sprite)
   {
-    super(x, y, width, height, 0);
+    super(x, y, width * 2, height * 2, 0);
     
     this.sprite = sprite;
     this.maxAmmo = maxAmmo;
@@ -25,7 +28,12 @@ public abstract class WeaponEntity extends Entity implements Collectible
   @Override
   public void render(Graphics g)
   {
-    g.drawImage(sprite, getX(), getY(), null);
+    if(collected)
+    {
+      return;
+    }
+   
+    g.drawImage(sprite, getX() - camera.getX(), getY() - camera.getY(), null);
   }
   
   public String getName()

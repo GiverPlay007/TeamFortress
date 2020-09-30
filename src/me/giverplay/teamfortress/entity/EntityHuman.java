@@ -13,7 +13,7 @@ import static me.giverplay.teamfortress.world.World.moveAllowed;
 public class EntityHuman extends Entity
 {
 	protected WeaponEntity equippedWeapon;
-	private EntityHumanType type;
+	protected EntityHumanType type;
 	
 	protected List<WeaponEntity> weapons = new ArrayList<>();
 	protected List<Node> path;
@@ -35,6 +35,7 @@ public class EntityHuman extends Entity
 	protected int ammoRpg = 0;
 	protected int ammoRevolver = 0;
 	protected int ammoShotgun = 0;
+	protected int weaponIndex = 0;
 	
 	private int animFrames = 0;
 	private int maxAnimFrames = 10;
@@ -83,7 +84,7 @@ public class EntityHuman extends Entity
 			animIndex = 0;
 		}
 		
-		g.drawImage(sprites[animIndex], getX() - game.getCamera().getX(), getY() - game.getCamera().getY(), width, height, null);
+		g.drawImage(sprites[animIndex], getX() - camera.getX(), getY() - camera.getY(), width, height, null);
 	}
 	
 	public void setType(EntityHumanType type)
@@ -247,5 +248,22 @@ public class EntityHuman extends Entity
 	public WeaponEntity getEquippedWeapon()
 	{
 		return this.equippedWeapon;
+	}
+	
+	public void changeWeapon()
+	{
+		if(weapons.isEmpty())
+		{
+			return;
+		}
+		
+		weaponIndex++;
+		
+		if(weaponIndex >= weapons.size())
+		{
+			weaponIndex = 0;
+		}
+		
+		equippedWeapon = weapons.get(weaponIndex);
 	}
 }

@@ -4,12 +4,14 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.Comparator;
 import java.util.Random;
+import me.giverplay.teamfortress.game.Camera;
 import me.giverplay.teamfortress.game.Game;
 
 public abstract class Entity
 {
   protected static Random random = new Random();
   protected static Game game = Game.getGame();
+  protected static Camera camera = game.getCamera();
   
   protected double y;
   

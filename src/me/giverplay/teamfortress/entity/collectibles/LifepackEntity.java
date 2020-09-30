@@ -27,6 +27,6 @@ public class LifepackEntity extends Entity implements Collectible
   @Override
   public void render(Graphics g)
   {
-    g.drawImage(Spritesheet.LIFE_PACK, getX(), getY(), width, height, null);
+    g.drawImage(Spritesheet.LIFE_PACK, getX() - camera.getX(), getY() - camera.getY(), width * 2, height * 2, null);
   }
 }
