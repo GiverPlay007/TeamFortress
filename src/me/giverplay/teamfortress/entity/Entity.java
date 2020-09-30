@@ -20,11 +20,9 @@ public abstract class Entity
   
   public Entity(double x, double y, int width, int height, int depth)
   {
-    this.x = x;
-    this.y = y;
-    this.width = width;
-    this.height = height;
-    this.depth = depth;
+    setLocation(x, y);
+    setDimension(width, height);
+    setDepth(depth);
   }
   public abstract void tick();
   
@@ -48,6 +46,18 @@ public abstract class Entity
   public void setDepth(int toSet)
   {
     this.depth = toSet;
+  }
+  
+  public void setLocation(double x, double y)
+  {
+    this.x = x;
+    this.y = y;
+  }
+  
+  public void setDimension(int w, int h)
+  {
+    this.width = w;
+    this.height = h;
   }
   
   public void moveX(double d)

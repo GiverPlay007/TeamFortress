@@ -17,6 +17,11 @@ public class EnemyEntity extends EntityHuman
 		setDepth(1);
 	}
 	
+	public EnemyEntity(double x, double y)
+	{
+		this(x, y, EntityHumanType.getRandomPink());
+	}
+	
 	@Override
 	public void tick()
 	{

@@ -9,8 +9,10 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import me.giverplay.teamfortress.entity.NonHumanEntityType;
+import me.giverplay.teamfortress.entity.entities.EnemyEntity;
 import me.giverplay.teamfortress.game.Game;
 import me.giverplay.teamfortress.game.Camera;
+import me.giverplay.teamfortress.graphics.Cores;
 
 public class World
 {
@@ -45,10 +47,10 @@ public class World
 		width = map.getWidth();
 		height = map.getHeight();
 		
-		int lenght = width * height;
-		int[] pixels = new int[lenght];
+		int length = width * height;
+		int[] pixels = new int[length];
 		
-		tiles = new Tile[lenght];
+		tiles = new Tile[length];
 		
 		map.getRGB(0, 0, width, height, pixels, 0, width);
 		
@@ -84,7 +86,7 @@ public class World
 		{
 			if(pixel == type.getHexaColor())
 			{
-				game.getEntities().add(type.getNewInstance(x, y));
+				game.getEntities().add(type.getNewInstance(x * TILE_SIZE, y * TILE_SIZE));
 				break;
 			}
 		}
@@ -92,7 +94,21 @@ public class World
 	
 	private void checkHumanEntities(int x, int y, int pixel)
 	{
-	
+		switch(pixel)
+		{
+			case Cores.LOC_ENEMY:
+				game.getEntities().add(new EnemyEntity(x * TILE_SIZE, y * TILE_SIZE));
+				break;
+				
+			case Cores.LOC_ENEMY_FRANCO:
+				EnemyEntity enemy = new EnemyEntity(x * TILE_SIZE, y * TILE_SIZE);
+				// TODO
+				break;
+				
+			case Cores.LOC_PLAYER:
+				game.getPlayer().setLocation(x * TILE_SIZE, y * TILE_SIZE);
+				break;
+		}
 	}
 	
 	public void render(Graphics g)

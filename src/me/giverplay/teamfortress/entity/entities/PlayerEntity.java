@@ -11,7 +11,7 @@ public class PlayerEntity extends EntityHuman
 	
 	public PlayerEntity(int x, int y)
 	{
-		super(EntityHumanType.FUZILEIRO_BLUE, x, y);
+		super(EntityHumanType.getRandomBlue(), x, y);
 		
 		camera = game.getCamera();
 		
