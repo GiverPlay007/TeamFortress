@@ -11,14 +11,14 @@ public abstract class Entity
   protected static Random random = new Random();
   protected static Game game = Game.getGame();
   
-  protected double x;
   protected double y;
   
   protected int width;
   protected int height;
   protected int depth;
+  protected int x;
   
-  public Entity(double x, double y, int width, int height, int depth)
+  public Entity(int x, double y, int width, int height, int depth)
   {
     setLocation(x, y);
     setDimension(width, height);
@@ -48,7 +48,7 @@ public abstract class Entity
     this.depth = toSet;
   }
   
-  public void setLocation(double x, double y)
+  public void setLocation(int x, double y)
   {
     this.x = x;
     this.y = y;
@@ -72,7 +72,7 @@ public abstract class Entity
   
   public int getX()
   {
-    return (int) this.x;
+    return this.x;
   }
   
   public int getY()

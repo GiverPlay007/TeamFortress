@@ -4,8 +4,6 @@ public class GameTask implements Runnable
 {
   private final Game game;
   
-  private boolean shouldRender = false;
-  
   private int ticks;
   private int fps;
   private int tps;
@@ -16,27 +14,6 @@ public class GameTask implements Runnable
     this.game = game;
     
     new Thread(this, "Game Looping - Main").start();
-    new Thread(() -> { while(this.game.isRunning()) this.render(); }, "Game Looping - Render").start();
-  }
-  
-  private void render()
-  {
-    if(!shouldRender)
-    {
-      return;
-    }
-  
-    game.render();
-    fps++;
-    shouldRender = false;
-    
-    try
-    {
-      Thread.sleep(5);
-    }catch(InterruptedException e)
-    {
-      e.printStackTrace();
-    }
   }
   
   public int getTpsAvg()
@@ -72,7 +49,8 @@ public class GameTask implements Runnable
         unprocessed--;
       }
       
-      shouldRender = true;
+      game.render();
+      fps++;
       
       if(System.currentTimeMillis() - timer >= 1000)
       {
@@ -85,7 +63,7 @@ public class GameTask implements Runnable
       
       try
       {
-        Thread.sleep(2);
+        Thread.sleep(5);
       }
       catch(InterruptedException e)
       {

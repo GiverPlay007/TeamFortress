@@ -10,14 +10,14 @@ public class EnemyEntity extends EntityHuman
 {
 	private boolean changeDir = false;
 	
-	public EnemyEntity(double x, double y, EntityHumanType type)
+	public EnemyEntity(int x, double y, EntityHumanType type)
 	{
 		super(type, x, y);
 		
 		setDepth(1);
 	}
 	
-	public EnemyEntity(double x, double y)
+	public EnemyEntity(int x, double y)
 	{
 		this(x, y, EntityHumanType.getRandomPink());
 	}

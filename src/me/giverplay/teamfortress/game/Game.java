@@ -120,6 +120,8 @@ public class Game extends Canvas
 			}
 		}
 		
+		entities.sort(Entity.sortDepth);
+		
 		if(state.doMenuTick())
 		{
 		
@@ -148,9 +150,10 @@ public class Game extends Canvas
 		
 		world.render(g);
 		
-		entities.sort(Entity.sortDepth);
-		
-		for(Entity entity : entities) entity.render(g);
+		for(int i = 0; i < entities.size(); i++)
+		{
+			entities.get(i).render(g);
+		}
 		
 		renderSmooth(g);
 		

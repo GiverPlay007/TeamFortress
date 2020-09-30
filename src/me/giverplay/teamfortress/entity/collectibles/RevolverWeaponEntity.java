@@ -1,5 +1,4 @@
 package me.giverplay.teamfortress.entity.collectibles;
-
 import me.giverplay.teamfortress.entity.EntityAmmoType;
 import me.giverplay.teamfortress.entity.WeaponEntity;
 import me.giverplay.teamfortress.graphics.Spritesheet;

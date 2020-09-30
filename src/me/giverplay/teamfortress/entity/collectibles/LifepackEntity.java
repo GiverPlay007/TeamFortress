@@ -7,7 +7,7 @@ import me.giverplay.teamfortress.graphics.Spritesheet;
 
 public class LifepackEntity extends Entity implements Collectible
 {
-  public LifepackEntity(double x, double y)
+  public LifepackEntity(int x, double y)
   {
     super(x, y, 10, 10, 0);
   }

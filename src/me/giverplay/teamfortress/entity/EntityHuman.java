@@ -2,6 +2,7 @@ package me.giverplay.teamfortress.entity;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import java.util.List;
 import me.giverplay.teamfortress.algorithms.Node;
 import me.giverplay.teamfortress.algorithms.Vector2i;
@@ -11,10 +12,13 @@ import static me.giverplay.teamfortress.world.World.moveAllowed;
 
 public class EntityHuman extends Entity
 {
+	protected WeaponEntity equippedWeapon;
 	private EntityHumanType type;
 	
+	protected List<WeaponEntity> weapons = new ArrayList<>();
 	protected List<Node> path;
-	protected volatile BufferedImage[] sprites;
+	
+	protected BufferedImage[] sprites;
 	
 	private boolean right;
 	private boolean left;
@@ -27,11 +31,16 @@ public class EntityHuman extends Entity
 	private double gravity = 0.4;
 	private double vspd = 0;
 	
+	protected int ammoAk = 0;
+	protected int ammoRpg = 0;
+	protected int ammoRevolver = 0;
+	protected int ammoShotgun = 0;
+	
 	private int animFrames = 0;
 	private int maxAnimFrames = 10;
 	private int animIndex;
 	
-	public EntityHuman(EntityHumanType type, double x, double y)
+	public EntityHuman(EntityHumanType type, int x, double y)
 	{
 		super(x, y, type.getWidth(), type.getHeight(), 0);
 		
@@ -90,10 +99,10 @@ public class EntityHuman extends Entity
 		
 		if (jump && !moveAllowed(getX(), (int) (y + 1)) && moveAllowed(getX(), (int) (y -1)))
 		{
-			vspd = -6;
+			vspd = -8;
 		}
 		
-		if (!moveAllowed((int) x, (int) (y + vspd)))
+		if (!moveAllowed(x, (int) (y + vspd)))
 		{
 			int signVsp = 0;
 			
@@ -106,7 +115,7 @@ public class EntityHuman extends Entity
 				signVsp = -1;
 			}
 			
-			while (moveAllowed((int) x, (int) (y + signVsp)))
+			while (moveAllowed(x, (int) (y + signVsp)))
 			{
 				y = y + signVsp;
 			}
@@ -193,5 +202,50 @@ public class EntityHuman extends Entity
 	public boolean isJumping()
 	{
 		return this.jumping;
+	}
+	
+	public int getAmmoAk()
+	{
+		return ammoAk;
+	}
+	
+	public void setAmmoAk(int ammoAk)
+	{
+		this.ammoAk = ammoAk;
+	}
+	
+	public int getAmmoRevolver()
+	{
+		return ammoRevolver;
+	}
+	
+	public int getAmmoRpg()
+	{
+		return ammoRpg;
+	}
+	
+	public int getAmmoShotgun()
+	{
+		return ammoShotgun;
+	}
+	
+	public void setAmmoRevolver(int ammoRevolver)
+	{
+		this.ammoRevolver = ammoRevolver;
+	}
+	
+	public void setAmmoRpg(int ammoRpg)
+	{
+		this.ammoRpg = ammoRpg;
+	}
+	
+	public void setAmmoShotgun(int ammoShotgun)
+	{
+		this.ammoShotgun = ammoShotgun;
+	}
+	
+	public WeaponEntity getEquippedWeapon()
+	{
+		return this.equippedWeapon;
 	}
 }
