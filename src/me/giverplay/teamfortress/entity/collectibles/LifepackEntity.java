@@ -7,26 +7,39 @@ import me.giverplay.teamfortress.graphics.Spritesheet;
 
 public class LifepackEntity extends Entity implements Collectible
 {
+  private boolean collected;
+  
   public LifepackEntity(int x, double y)
   {
-    super(x, y, 10, 10, 0);
+    super(x + 10, y + 18, 20, 20, 0);
   }
   
   @Override
   public void collect()
   {
-  
+    collected = true;
+    game.getPlayer().checkHeal();
+    destroy();
   }
   
   @Override
   public void tick()
   {
+    if(isColliding(game.getPlayer()))
+    {
+      collect();
+    }
+  }
   
+  @Override
+  public boolean isCollected()
+  {
+    return collected;
   }
   
   @Override
   public void render(Graphics g)
   {
-    g.drawImage(Spritesheet.LIFE_PACK, getX() - camera.getX(), getY() - camera.getY(), width * 2, height * 2, null);
+    g.drawImage(Spritesheet.LIFE_PACK, getCamX(), getCamY(), width, height, null);
   }
 }

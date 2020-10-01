@@ -250,6 +250,58 @@ public class EntityHuman extends Entity
 		return this.equippedWeapon;
 	}
 	
+	public boolean checkWeaponCollect(WeaponEntity weapon)
+	{
+		if(weapons.size() == 4)
+		{
+			return false;
+		}
+		
+		for(WeaponEntity w : weapons)
+		{
+			if(w.getAmmoType() == weapon.getAmmoType())
+			{
+				return false;
+			}
+		}
+		
+		weapons.add(weapon);
+		
+		if(weapons.size() == 1)
+		{
+			equippedWeapon = weapon;
+		}
+		
+		return true;
+	}
+	
+	public void checkAmmoCollect(AmmoEntity ammo)
+	{
+		switch(ammo.getType())
+		{
+			case AK:
+				ammoAk += ammo.getCurrentItems();
+				break;
+				
+			case RPG:
+				ammoRpg += ammo.getCurrentItems();
+				break;
+				
+			case REVOLVER:
+				ammoRevolver += ammo.getCurrentItems();
+				break;
+				
+			case SHOTGUN:
+				ammoShotgun += ammo.getCurrentItems();
+				break;
+		}
+	}
+	
+	public void checkHeal()
+	{
+	
+	}
+	
 	public void changeWeapon()
 	{
 		if(weapons.isEmpty())

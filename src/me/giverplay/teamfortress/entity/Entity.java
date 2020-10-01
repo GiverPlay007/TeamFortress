@@ -111,4 +111,19 @@ public abstract class Entity
   {
     return Math.sqrt((x2 - x1) * (x2 - x1) + ((y2 - y1) * (y2 - y1)));
   }
+  
+  public boolean isColliding(Entity entity)
+  {
+    return Entity.isColliding(this, entity);
+  }
+  
+  public int getCamX()
+  {
+    return getX() - camera.getX();
+  }
+  
+  public int getCamY()
+  {
+    return getY() - camera.getY();
+  }
 }

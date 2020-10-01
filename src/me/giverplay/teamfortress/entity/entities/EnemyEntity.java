@@ -33,6 +33,6 @@ public class EnemyEntity extends EntityHuman
 			changeDir = !changeDir;
 		}
 		
-		//moveX(changeDir ? -speed : speed);
+		moveX(changeDir ? -speed : speed);
 	}
 }

@@ -17,7 +17,7 @@ public abstract class WeaponEntity extends Entity implements Collectible
   
   public WeaponEntity(String name, EntityAmmoType type, int maxAmmo, int ammo, int x, int y, int width, int height, BufferedImage sprite)
   {
-    super(x, y, width * 2, height * 2, 0);
+    super(x, y, width, height, 0);
     
     this.sprite = sprite;
     this.maxAmmo = maxAmmo;
@@ -26,14 +26,15 @@ public abstract class WeaponEntity extends Entity implements Collectible
   }
   
   @Override
+  public boolean isCollected()
+  {
+    return collected;
+  }
+  
+  @Override
   public void render(Graphics g)
   {
-    if(collected)
-    {
-      return;
-    }
-   
-    g.drawImage(sprite, getX() - camera.getX(), getY() - camera.getY(), null);
+    g.drawImage(sprite, getCamX(), getCamY(), null);
   }
   
   public String getName()

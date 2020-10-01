@@ -8,7 +8,7 @@ public class AkAmmoEntity extends AmmoEntity
 {
   public AkAmmoEntity(int x, int y, int ammo)
   {
-    super("AK-47 Ammo", EntityAmmoType.AK, ammo, 30, x, y, 19, 13, Spritesheet.AMMO_AK);
+    super("AK-47 Ammo", EntityAmmoType.AK, ammo, 30, x + 8, y + 18, 30, 20, Spritesheet.AMMO_AK);
   }
   
   public AkAmmoEntity(int x, int y)
@@ -19,12 +19,17 @@ public class AkAmmoEntity extends AmmoEntity
   @Override
   public void collect()
   {
-  
+    collected = true;
+    game.getPlayer().checkAmmoCollect(this);
+    destroy();
   }
   
   @Override
   public void tick()
   {
-  
+    if(isColliding(game.getPlayer()))
+    {
+      collect();
+    }
   }
 }

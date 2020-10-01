@@ -8,7 +8,7 @@ public class RocketLauncherAmmoEntity extends AmmoEntity
 {
   public RocketLauncherAmmoEntity(int x, int y, int ammo)
   {
-    super("Rocket Launcher Ammo", EntityAmmoType.RPG, ammo, 1, x, y, 17, 15, Spritesheet.AMMO_RPG);
+    super("Rocket Launcher Ammo", EntityAmmoType.RPG, ammo, 1, x + 10, y + 16, 20, 18, Spritesheet.AMMO_RPG);
   }
   
   public RocketLauncherAmmoEntity(int x, int y)
@@ -19,12 +19,17 @@ public class RocketLauncherAmmoEntity extends AmmoEntity
   @Override
   public void collect()
   {
-  
+    collected = true;
+    game.getPlayer().checkAmmoCollect(this);
+    destroy();
   }
   
   @Override
   public void tick()
   {
-  
+    if(isColliding(game.getPlayer()))
+    {
+      collect();
+    }
   }
 }
