@@ -19,7 +19,9 @@ public class AkWeaponEntity extends WeaponEntity
   @Override
   public void collect()
   {
-  
+    collected = true;
+    game.getPlayer().checkWeaponCollect(this);
+    destroy();
   }
   
   @Override
@@ -31,6 +33,9 @@ public class AkWeaponEntity extends WeaponEntity
   @Override
   public void tick()
   {
-  
+    if(isColliding(game.getPlayer()))
+    {
+      collect();
+    }
   }
 }

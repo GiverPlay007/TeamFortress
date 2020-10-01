@@ -25,12 +25,17 @@ public class RocketLauncherWeaponEntity extends WeaponEntity
   @Override
   public void collect()
   {
-  
+    collected = true;
+    game.getPlayer().checkWeaponCollect(this);
+    destroy();
   }
   
   @Override
   public void tick()
   {
-  
+    if(isColliding(game.getPlayer()))
+    {
+      collect();
+    }
   }
 }
