@@ -8,7 +8,7 @@ public class ShotgunWeaponEntity extends WeaponEntity
 {
   public ShotgunWeaponEntity(int x, int y, int ammo)
   {
-    super("Shotgun", EntityAmmoType.SHOTGUN, 8, ammo, x, y, 36, 13, Spritesheet.WEAPON_SHOTGUN);
+    super("Shotgun", EntityAmmoType.SHOTGUN, 8, ammo, x, y + 25, 36, 13, Spritesheet.WEAPON_SHOTGUN);
   }
   
   public ShotgunWeaponEntity(int x, int y)

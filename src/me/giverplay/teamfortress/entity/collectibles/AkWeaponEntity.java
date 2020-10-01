@@ -8,7 +8,7 @@ public class AkWeaponEntity extends WeaponEntity
 {
   public AkWeaponEntity(int x, int y, int ammo)
   {
-    super("AK-47", EntityAmmoType.AK, 30, ammo, x, y, 36, 16, Spritesheet.WEAPON_AK);
+    super("AK-47", EntityAmmoType.AK, 30, ammo, x, y + 22, 36, 16, Spritesheet.WEAPON_AK);
   }
   
   public AkWeaponEntity(int x, int y)

@@ -7,7 +7,7 @@ public class RevolverWeaponEntity extends WeaponEntity
 {
   public RevolverWeaponEntity(int x, int y, int ammo)
   {
-    super("Revolver", EntityAmmoType.REVOLVER, 7, ammo, x, y, 21, 15, Spritesheet.WEAPON_REVOLVER);
+    super("Revolver", EntityAmmoType.REVOLVER, 7, ammo, x, y + 17, 21, 15, Spritesheet.WEAPON_REVOLVER);
   }
   
   public RevolverWeaponEntity(int x, int y)

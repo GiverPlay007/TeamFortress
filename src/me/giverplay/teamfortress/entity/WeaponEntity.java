@@ -1,6 +1,5 @@
 package me.giverplay.teamfortress.entity;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
@@ -23,6 +22,7 @@ public abstract class WeaponEntity extends Entity implements Collectible
     this.maxAmmo = maxAmmo;
     this.ammo = ammo;
     this.name = name;
+    this.type = type;
   }
   
   @Override

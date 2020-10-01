@@ -8,7 +8,7 @@ public class RocketLauncherWeaponEntity extends WeaponEntity
 {
   public RocketLauncherWeaponEntity(int x, int y, int ammo)
   {
-    super("Rocket Launcher", EntityAmmoType.RPG, 1, ammo, x, y, 47, 21, Spritesheet.WEAPON_RPG);
+    super("Rocket Launcher", EntityAmmoType.RPG, 1, ammo, x, y + 17, 47, 21, Spritesheet.WEAPON_RPG);
   }
   
   public RocketLauncherWeaponEntity(int x, int y)
