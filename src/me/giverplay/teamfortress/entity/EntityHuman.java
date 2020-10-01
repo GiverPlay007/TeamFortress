@@ -12,10 +12,10 @@ import static me.giverplay.teamfortress.world.World.moveAllowed;
 
 public class EntityHuman extends Entity
 {
-	protected WeaponEntity equippedWeapon;
+	protected EntityWeapon equippedWeapon;
 	protected EntityHumanType type;
 	
-	protected List<WeaponEntity> weapons = new ArrayList<>();
+	protected List<EntityWeapon> weapons = new ArrayList<>();
 	protected List<Node> path;
 	
 	protected BufferedImage[] sprites;
@@ -245,19 +245,19 @@ public class EntityHuman extends Entity
 		this.ammoShotgun = ammoShotgun;
 	}
 	
-	public WeaponEntity getEquippedWeapon()
+	public EntityWeapon getEquippedWeapon()
 	{
 		return this.equippedWeapon;
 	}
 	
-	public boolean checkWeaponCollect(WeaponEntity weapon)
+	public boolean checkWeaponCollect(EntityWeapon weapon)
 	{
 		if(weapons.size() == 4)
 		{
 			return false;
 		}
 		
-		for(WeaponEntity w : weapons)
+		for(EntityWeapon w : weapons)
 		{
 			if(w.getAmmoType() == weapon.getAmmoType())
 			{
@@ -275,7 +275,7 @@ public class EntityHuman extends Entity
 		return true;
 	}
 	
-	public void checkAmmoCollect(AmmoEntity ammo)
+	public void checkAmmoCollect(EntityAmmo ammo)
 	{
 		switch(ammo.getType())
 		{

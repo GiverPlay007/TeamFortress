@@ -1,9 +1,9 @@
 package me.giverplay.teamfortress.entity.collectibles;
 import me.giverplay.teamfortress.entity.EntityAmmoType;
-import me.giverplay.teamfortress.entity.WeaponEntity;
+import me.giverplay.teamfortress.entity.EntityWeapon;
 import me.giverplay.teamfortress.graphics.Spritesheet;
 
-public class RevolverWeaponEntity extends WeaponEntity
+public class RevolverWeaponEntity extends EntityWeapon
 {
   public RevolverWeaponEntity(int x, int y, int ammo)
   {

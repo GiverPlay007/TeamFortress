@@ -3,7 +3,7 @@ package me.giverplay.teamfortress.entity;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
-public abstract class AmmoEntity extends Entity implements Collectible
+public abstract class EntityAmmo extends Entity implements Collectible
 {
   protected BufferedImage sprite;
   private EntityAmmoType type;
@@ -14,7 +14,7 @@ public abstract class AmmoEntity extends Entity implements Collectible
   private int currentItems;
   private int maxItems;
   
-  public AmmoEntity(String name, EntityAmmoType type, int currentItems, int maxItems, int x, int y, int width, int height, BufferedImage sprite)
+  public EntityAmmo(String name, EntityAmmoType type, int currentItems, int maxItems, int x, int y, int width, int height, BufferedImage sprite)
   {
     super(x, y, width, height, 0);
     

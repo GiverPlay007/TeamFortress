@@ -1,10 +1,10 @@
 package me.giverplay.teamfortress.entity.collectibles;
 
-import me.giverplay.teamfortress.entity.AmmoEntity;
+import me.giverplay.teamfortress.entity.EntityAmmo;
 import me.giverplay.teamfortress.entity.EntityAmmoType;
 import me.giverplay.teamfortress.graphics.Spritesheet;
 
-public class AkAmmoEntity extends AmmoEntity
+public class AkAmmoEntity extends EntityAmmo
 {
   public AkAmmoEntity(int x, int y, int ammo)
   {
