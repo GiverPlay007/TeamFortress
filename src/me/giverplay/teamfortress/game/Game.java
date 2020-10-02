@@ -108,6 +108,7 @@ public class Game extends Canvas
 		startGame();
 		isRunning = true;
 		task = new GameTask(this);
+		requestFocus();
 	}
 	
 	public void tick()
