@@ -74,4 +74,8 @@ public abstract class EntityWeapon extends Entity implements Collectible
   }
   
   public abstract boolean shoot();
+  
+  public abstract int getXOffset();
+  
+  public abstract int getYOffset();
 }

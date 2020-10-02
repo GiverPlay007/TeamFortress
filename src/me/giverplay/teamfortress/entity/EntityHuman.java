@@ -7,6 +7,7 @@ import java.util.List;
 import me.giverplay.teamfortress.algorithms.Node;
 import me.giverplay.teamfortress.algorithms.Vector2i;
 
+
 import static me.giverplay.teamfortress.graphics.Spritesheet.TILE_SIZE;
 import static me.giverplay.teamfortress.world.World.moveAllowed;
 
@@ -88,8 +89,8 @@ public class EntityHuman extends Entity
 		
 		if(equippedWeapon != null)
 		{
-			equippedWeapon.setX(getX() + 24);
-			equippedWeapon.setY(getY() + 16);
+			equippedWeapon.setX(getX() + equippedWeapon.getXOffset());
+			equippedWeapon.setY(getY() + equippedWeapon.getYOffset());
 			equippedWeapon.render(g);
 		}
 	}

@@ -38,4 +38,16 @@ public class ShotgunWeaponEntity extends EntityWeapon
       collect();
     }
   }
+  
+  @Override
+  public int getXOffset()
+  {
+    return 6;
+  }
+  
+  @Override
+  public int getYOffset()
+  {
+    return 22;
+  }
 }

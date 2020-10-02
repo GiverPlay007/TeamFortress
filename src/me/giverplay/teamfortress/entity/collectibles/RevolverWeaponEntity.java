@@ -37,4 +37,16 @@ public class RevolverWeaponEntity extends EntityWeapon
       collect();
     }
   }
+  
+  @Override
+  public int getXOffset()
+  {
+    return 22;
+  }
+  
+  @Override
+  public int getYOffset()
+  {
+    return 16;
+  }
 }

@@ -38,4 +38,16 @@ public class RocketLauncherWeaponEntity extends EntityWeapon
       collect();
     }
   }
+  
+  @Override
+  public int getXOffset()
+  {
+    return -10;
+  }
+  
+  @Override
+  public int getYOffset()
+  {
+    return 14;
+  }
 }

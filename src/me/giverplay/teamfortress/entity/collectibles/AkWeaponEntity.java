@@ -38,4 +38,16 @@ public class AkWeaponEntity extends EntityWeapon
       collect();
     }
   }
+  
+  @Override
+  public int getXOffset()
+  {
+    return 8;
+  }
+  
+  @Override
+  public int getYOffset()
+  {
+    return 18;
+  }
 }
