@@ -84,7 +84,14 @@ public class EntityHuman extends Entity
 			animIndex = 0;
 		}
 		
-		g.drawImage(sprites[animIndex], getX() - camera.getX(), getY() - camera.getY(), width, height, null);
+		g.drawImage(sprites[animIndex], getCamX(), getCamY(), width, height, null);
+		
+		if(equippedWeapon != null)
+		{
+			equippedWeapon.setX(getX() + 24);
+			equippedWeapon.setY(getY() + 16);
+			equippedWeapon.render(g);
+		}
 	}
 	
 	public void setType(EntityHumanType type)
