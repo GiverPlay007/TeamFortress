@@ -9,6 +9,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import me.giverplay.teamfortress.entity.NonHumanEntityType;
+import me.giverplay.teamfortress.entity.collectibles.RocketLauncherWeaponEntity;
 import me.giverplay.teamfortress.entity.entities.EnemyEntity;
 import me.giverplay.teamfortress.game.Game;
 import me.giverplay.teamfortress.game.Camera;
@@ -102,7 +103,8 @@ public class World
 				
 			case Cores.LOC_ENEMY_FRANCO:
 				EnemyEntity enemy = new EnemyEntity(x * TILE_SIZE, y * TILE_SIZE);
-				// TODO Colocar RPG no cara
+				enemy.checkWeaponCollect(new RocketLauncherWeaponEntity(x, y));
+				game.getEntities().add(enemy);
 				break;
 				
 			case Cores.LOC_PLAYER:
