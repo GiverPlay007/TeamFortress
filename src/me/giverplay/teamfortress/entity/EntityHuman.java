@@ -26,6 +26,7 @@ public class EntityHuman extends Entity
 	private boolean walking;
 	private boolean jumping;
 	private boolean jump;
+	private boolean invert;
 	
 	protected double speed = 2;
 	
@@ -85,13 +86,22 @@ public class EntityHuman extends Entity
 			animIndex = 0;
 		}
 		
-		g.drawImage(sprites[animIndex], getCamX(), getCamY(), width, height, null);
+		int x = getCamX();
+		int w = width;
+		
+		if(invert)
+		{
+			x += width;
+			w *= -1;
+		}
+		
+		g.drawImage(sprites[animIndex], x, getCamY(), w, height, null);
 		
 		if(equippedWeapon != null)
 		{
 			equippedWeapon.setX(getX() + equippedWeapon.getXOffset());
 			equippedWeapon.setY(getY() + equippedWeapon.getYOffset());
-			equippedWeapon.render(g);
+			equippedWeapon.renderDummy(g, invert);
 		}
 	}
 	
@@ -148,6 +158,7 @@ public class EntityHuman extends Entity
 			{
 				moveX(speed);
 				walking = true;
+				invert = false;
 			}
 		}
 		
@@ -157,6 +168,7 @@ public class EntityHuman extends Entity
 			{
 				moveX(-speed);
 				walking = true;
+				invert = true;
 			}
 		}
 	}

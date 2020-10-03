@@ -37,6 +37,20 @@ public abstract class EntityWeapon extends Entity implements Collectible
     g.drawImage(sprite, getCamX(), getCamY(), null);
   }
   
+  public void renderDummy(Graphics g, boolean invert)
+  {
+    int x = getCamX();
+    int w = width;
+    
+    if(invert)
+    {
+      x -= getXOffset() - width;
+      w *= -1;
+    }
+    
+    g.drawImage(sprite, x, getCamY(), w, getHeight(), null);
+  }
+  
   public String getName()
   {
     return name;
