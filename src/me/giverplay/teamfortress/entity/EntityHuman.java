@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import me.giverplay.teamfortress.algorithms.Node;
 import me.giverplay.teamfortress.algorithms.Vector2i;
+import me.giverplay.teamfortress.game.Keys;
 
 
 import static me.giverplay.teamfortress.graphics.Spritesheet.TILE_SIZE;
@@ -33,6 +34,8 @@ public class EntityHuman extends Entity
 	private double gravity = 0.4;
 	private double vspd = 0;
 	
+	protected long lastShoot;
+	
 	protected int ammoAk = 0;
 	protected int ammoRpg = 0;
 	protected int ammoRevolver = 0;
@@ -57,6 +60,7 @@ public class EntityHuman extends Entity
 	{
 		checkJump();
 		checkWalk();
+		checkShoot();
 		advanceAnim();
 	}
 	
@@ -73,6 +77,26 @@ public class EntityHuman extends Entity
 			if(animIndex >= sprites.length)
 			{
 				animIndex = 0;
+			}
+		}
+	}
+	
+	protected void checkShoot()
+	{
+		if(!Keys.shoot)
+		{
+			return;
+		}
+		
+		if(System.currentTimeMillis() - lastShoot >= 300)
+		{
+			if(equippedWeapon != null)
+			{
+				if(equippedWeapon.silentShoot())
+				{
+					equippedWeapon.shoot(invert);
+					lastShoot = System.currentTimeMillis();
+				}
 			}
 		}
 	}
@@ -318,6 +342,11 @@ public class EntityHuman extends Entity
 	}
 	
 	public void checkHeal()
+	{
+	
+	}
+	
+	public void shootDamage()
 	{
 	
 	}

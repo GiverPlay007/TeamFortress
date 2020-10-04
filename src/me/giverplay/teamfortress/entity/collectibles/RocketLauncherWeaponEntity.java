@@ -2,6 +2,7 @@ package me.giverplay.teamfortress.entity.collectibles;
 
 import me.giverplay.teamfortress.entity.EntityAmmoType;
 import me.giverplay.teamfortress.entity.EntityWeapon;
+import me.giverplay.teamfortress.entity.entities.BulletEntity;
 import me.giverplay.teamfortress.graphics.Spritesheet;
 
 public class RocketLauncherWeaponEntity extends EntityWeapon
@@ -17,9 +18,19 @@ public class RocketLauncherWeaponEntity extends EntityWeapon
   }
   
   @Override
-  public boolean shoot()
+  public boolean shoot(boolean invert)
   {
-    return false;
+    int x = getX() + getWidth();
+    int dx = 10;
+  
+    if(invert)
+    {
+      dx *= -1;
+      x -= getWidth() + getXOffset();
+    }
+  
+    game.getEntities().add(new BulletEntity(x, getY() + 1, dx));
+    return true;
   }
   
   @Override
