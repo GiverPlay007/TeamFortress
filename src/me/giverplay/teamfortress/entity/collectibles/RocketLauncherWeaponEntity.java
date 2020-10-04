@@ -29,7 +29,7 @@ public class RocketLauncherWeaponEntity extends EntityWeapon
       x -= getWidth() + getXOffset();
     }
   
-    game.getEntities().add(new BulletEntity(x, getY() + 1, dx));
+    game.getEntities().add(new BulletEntity(x, getY() + 6, dx));
     return true;
   }
   

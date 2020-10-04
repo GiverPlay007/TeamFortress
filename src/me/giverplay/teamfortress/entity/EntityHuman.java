@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 import me.giverplay.teamfortress.algorithms.Node;
 import me.giverplay.teamfortress.algorithms.Vector2i;
+import me.giverplay.teamfortress.entity.collectibles.AkWeaponEntity;
+import me.giverplay.teamfortress.entity.collectibles.RocketLauncherWeaponEntity;
+import me.giverplay.teamfortress.entity.collectibles.ShotgunWeaponEntity;
 import me.giverplay.teamfortress.game.Keys;
 
 
@@ -51,7 +54,7 @@ public class EntityHuman extends Entity
 		super(x, y, type.getWidth(), type.getHeight(), 0);
 		
 		sprites = type.getIdle();
-		
+		equippedWeapon = new RocketLauncherWeaponEntity(x, getY(), 100);
 		setType(type);
 	}
 	

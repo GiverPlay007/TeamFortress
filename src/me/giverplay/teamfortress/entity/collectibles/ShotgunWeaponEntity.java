@@ -21,7 +21,7 @@ public class ShotgunWeaponEntity extends EntityWeapon
   public boolean shoot(boolean invert)
   {
     int x = getX() + getWidth();
-    int dx = 10;
+    int dx = 11;
   
     if(invert)
     {

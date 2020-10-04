@@ -29,7 +29,7 @@ public class AkWeaponEntity extends EntityWeapon
   public boolean shoot(boolean invert)
   {
     int x = getX() + getWidth();
-    int dx = 10;
+    int dx = 15;
   
     if(invert)
     {
@@ -37,7 +37,7 @@ public class AkWeaponEntity extends EntityWeapon
       x -= getWidth() + getXOffset();
     }
   
-    game.getEntities().add(new BulletEntity(x, getY() + 1, dx));
+    game.getEntities().add(new BulletEntity(x, getY() + 2, dx));
     return true;
   }
   
