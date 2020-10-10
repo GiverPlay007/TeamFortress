@@ -14,7 +14,7 @@ import static me.giverplay.teamfortress.world.World.moveAllowed;
 
 public class EntityHuman extends Entity
 {
-	protected EntityWeapon equippedWeapon;
+	protected EntityWeapon weapon;
 	protected EntityHumanType type;
 	
 	protected List<EntityWeapon> weapons = new ArrayList<>();
@@ -89,11 +89,11 @@ public class EntityHuman extends Entity
 		
 		if(System.currentTimeMillis() - lastShoot >= 300)
 		{
-			if(equippedWeapon != null)
+			if(weapon != null)
 			{
-				if(equippedWeapon.silentShoot())
+				if(weapon.silentShoot())
 				{
-					equippedWeapon.shoot(invert);
+					weapon.shoot(invert);
 					lastShoot = System.currentTimeMillis();
 				}
 			}
@@ -120,11 +120,11 @@ public class EntityHuman extends Entity
 		
 		g.drawImage(sprites[animIndex], x, getCamY(), w, height, null);
 		
-		if(equippedWeapon != null)
+		if(weapon != null)
 		{
-			equippedWeapon.setX(getX() + equippedWeapon.getXOffset());
-			equippedWeapon.setY(getY() + equippedWeapon.getYOffset());
-			equippedWeapon.renderDummy(g, invert);
+			weapon.setX(getX() + weapon.getXOffset());
+			weapon.setY(getY() + weapon.getYOffset());
+			weapon.renderDummy(g, invert);
 		}
 	}
 	
@@ -281,7 +281,7 @@ public class EntityHuman extends Entity
 	
 	public EntityWeapon getEquippedWeapon()
 	{
-		return this.equippedWeapon;
+		return this.weapon;
 	}
 	
 	public boolean checkWeaponCollect(EntityWeapon weapon)
@@ -303,7 +303,7 @@ public class EntityHuman extends Entity
 		
 		if(weapons.size() == 1)
 		{
-			equippedWeapon = weapon;
+			this.weapon = weapon;
 		}
 		
 		return true;
@@ -311,32 +311,22 @@ public class EntityHuman extends Entity
 	
 	public void reload()
 	{
-		if(equippedWeapon == null)
+		if(weapon == null || weapon.getAmmo() == weapon.getMaxAmmo() || getAmmo(weapon.getAmmoType()) < 1)
 		{
 			return;
 		}
 		
-		if(equippedWeapon.getAmmo() == equippedWeapon.getMaxAmmo())
-		{
-			return;
-		}
-		
-		if(getAmmo(equippedWeapon.getAmmoType()) < 1)
-		{
-			return;
-		}
-		
-		int need = equippedWeapon.getMaxAmmo() - equippedWeapon.getAmmo();
-		int result = getAmmo(equippedWeapon.getAmmoType()) - need;
+		int result = getAmmo(weapon.getAmmoType()) - (weapon.getMaxAmmo() - weapon.getAmmo());
 		
 		if(result >= 0)
     {
-      setAmmo(equippedWeapon.getAmmoType(), result);
-      equippedWeapon.setAmmo(equippedWeapon.getMaxAmmo());
+      setAmmo(weapon.getAmmoType(), result);
+      weapon.setAmmo(weapon.getMaxAmmo());
       return;
     }
 		
-		// TODO Calcular com base na quantidade atual
+		setAmmo(weapon.getAmmoType(), 0);
+		weapon.setAmmo(weapon.getMaxAmmo() - getAmmo(weapon.getAmmoType()));
 	}
 	
 	public int getAmmo(EntityAmmoType type)
@@ -424,6 +414,6 @@ public class EntityHuman extends Entity
 			weaponIndex = 0;
 		}
 		
-		equippedWeapon = weapons.get(weaponIndex);
+		weapon = weapons.get(weaponIndex);
 	}
 }
