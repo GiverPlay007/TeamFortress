@@ -27,7 +27,7 @@ public class EntityHuman extends Entity
 	private boolean walking;
 	private boolean onAir;
 	private boolean jump;
-	private boolean invert;
+	protected boolean invert;
 	
 	protected double speed = 2;
 	

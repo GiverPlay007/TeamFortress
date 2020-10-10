@@ -31,6 +31,7 @@ public class EnemyEntity extends EntityHuman
 				|| !moveAllowed(getX() + (changeDir ? (int) -speed : (int) -speed), getY()))
 		{
 			changeDir = !changeDir;
+			invert = changeDir;
 		}
 		
 		moveX(changeDir ? -speed : speed);
