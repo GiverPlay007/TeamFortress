@@ -90,7 +90,7 @@ public abstract class EntityWeapon extends Entity implements Collectible
   
   public abstract int getDelay();
   
-  public abstract boolean shoot(boolean invert);
+  public abstract boolean shoot(boolean invert, boolean player);
   
   public abstract int getXOffset();
   

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import me.giverplay.teamfortress.algorithms.Node;
 import me.giverplay.teamfortress.algorithms.Vector2i;
+import me.giverplay.teamfortress.entity.entities.PlayerEntity;
 import me.giverplay.teamfortress.game.Keys;
 
 
@@ -101,7 +102,7 @@ public class EntityHuman extends Entity
 			{
 				if(weapon.silentShoot())
 				{
-					weapon.shoot(invert);
+					weapon.shoot(invert, this instanceof PlayerEntity);
 					lastShoot = System.currentTimeMillis();
 				}
 			}

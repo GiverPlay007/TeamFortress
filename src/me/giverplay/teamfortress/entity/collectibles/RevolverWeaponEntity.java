@@ -17,7 +17,7 @@ public class RevolverWeaponEntity extends EntityWeapon
   }
   
   @Override
-  public boolean shoot(boolean invert)
+  public boolean shoot(boolean invert, boolean player)
   {
     int x = getX() + getWidth();
     int dx = 10;
@@ -28,7 +28,7 @@ public class RevolverWeaponEntity extends EntityWeapon
       x -= getWidth() + getXOffset();
     }
     
-    game.getEntities().add(new BulletEntity(x, getY() + 1, dx, getDamage()));
+    game.getEntities().add(new BulletEntity(x, getY() + 1, dx, getDamage(), player));
     return true;
   }
   
