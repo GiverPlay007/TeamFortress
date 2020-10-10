@@ -8,12 +8,14 @@ import me.giverplay.teamfortress.entity.EntityHuman;
 public class BulletEntity extends Entity
 {
   private final int dx;
+  private final int damage;
   
-  public BulletEntity(int x, int y, int dx)
+  public BulletEntity(int x, int y, int dx, int damage)
   {
     super(x, y, 5, 5, 1);
     
     this.dx = dx;
+    this.damage = damage;
   }
   
   @Override
@@ -32,7 +34,7 @@ public class BulletEntity extends Entity
           return;
         }
         
-        ((EntityHuman) entity).shootDamage();
+        ((EntityHuman) entity).shootDamage(damage);
         destroy();
         break;
       }

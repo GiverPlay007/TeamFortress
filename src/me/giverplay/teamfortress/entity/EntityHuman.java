@@ -45,6 +45,8 @@ public class EntityHuman extends Entity
 	private int animFrames = 0;
 	private int maxAnimFrames = 10;
 	private int animIndex;
+	private int life = 10;
+	private int maxLife = 10;
 	
 	public EntityHuman(EntityHumanType type, int x, double y)
 	{
@@ -57,6 +59,12 @@ public class EntityHuman extends Entity
 	@Override
 	public void tick()
 	{
+		if(life <= 0)
+		{
+			destroy();
+			return;
+		}
+		
 		checkJump();
 		checkWalk();
 		checkShoot();
@@ -397,12 +405,17 @@ public class EntityHuman extends Entity
 	
 	public void checkHeal()
 	{
-	
+		life += 10;
+		
+		if(life >= maxLife)
+		{
+			life = maxLife;
+		}
 	}
 	
-	public void shootDamage()
+	public void shootDamage(int damage)
 	{
-	
+		life -= damage;
 	}
 	
 	public void changeWeapon()
@@ -420,5 +433,25 @@ public class EntityHuman extends Entity
 		}
 		
 		weapon = weapons.get(weaponIndex);
+	}
+	
+	public int getLife()
+	{
+		return this.life;
+	}
+	
+	public int getMaxLife()
+	{
+		return this.maxLife;
+	}
+	
+	public void setLife(int life)
+	{
+		this.life = life;
+	}
+	
+	public void setMaxLife(int maxLife)
+	{
+		this.maxLife = maxLife;
 	}
 }

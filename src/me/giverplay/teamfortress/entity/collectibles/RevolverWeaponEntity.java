@@ -28,7 +28,7 @@ public class RevolverWeaponEntity extends EntityWeapon
       x -= getWidth() + getXOffset();
     }
     
-    game.getEntities().add(new BulletEntity(x, getY() + 1, dx));
+    game.getEntities().add(new BulletEntity(x, getY() + 1, dx, getDamage()));
     return true;
   }
   
@@ -65,5 +65,11 @@ public class RevolverWeaponEntity extends EntityWeapon
   public int getDelay()
   {
     return 350;
+  }
+  
+  @Override
+  public int getDamage()
+  {
+    return 2;
   }
 }

@@ -29,7 +29,7 @@ public class RocketLauncherWeaponEntity extends EntityWeapon
       x -= getWidth() + getXOffset();
     }
   
-    game.getEntities().add(new BulletEntity(x, getY() + 6, dx));
+    game.getEntities().add(new BulletEntity(x, getY() + 6, dx, getDamage()));
     return true;
   }
   
@@ -66,5 +66,11 @@ public class RocketLauncherWeaponEntity extends EntityWeapon
   public int getYOffset()
   {
     return 14;
+  }
+  
+  @Override
+  public int getDamage()
+  {
+    return 50;
   }
 }

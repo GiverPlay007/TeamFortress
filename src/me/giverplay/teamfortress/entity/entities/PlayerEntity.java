@@ -13,6 +13,8 @@ public class PlayerEntity extends EntityHuman
 	{
 		super(EntityHumanType.getRandomBlue(), x, y);
 		
+		setMaxLife(50);
+		setLife(50);
 		setDepth(2);
 		setSpeed(3);
 	}

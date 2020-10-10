@@ -37,7 +37,7 @@ public class AkWeaponEntity extends EntityWeapon
       x -= getWidth() + getXOffset();
     }
   
-    game.getEntities().add(new BulletEntity(x, getY() + 2, dx));
+    game.getEntities().add(new BulletEntity(x, getY() + 2, dx, getDamage()));
     return true;
   }
   
@@ -66,5 +66,11 @@ public class AkWeaponEntity extends EntityWeapon
   public int getDelay()
   {
     return 200;
+  }
+  
+  @Override
+  public int getDamage()
+  {
+    return 5;
   }
 }

@@ -51,7 +51,6 @@ public abstract class EntityWeapon extends Entity implements Collectible
     g.drawImage(sprite, x, getCamY(), w, getHeight(), null);
   }
   
-  public abstract int getDelay();
   
   public String getName()
   {
@@ -89,9 +88,13 @@ public abstract class EntityWeapon extends Entity implements Collectible
     return true;
   }
   
+  public abstract int getDelay();
+  
   public abstract boolean shoot(boolean invert);
   
   public abstract int getXOffset();
   
   public abstract int getYOffset();
+  
+  public abstract int getDamage();
 }

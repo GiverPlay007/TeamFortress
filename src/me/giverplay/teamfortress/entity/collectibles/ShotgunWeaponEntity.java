@@ -29,7 +29,7 @@ public class ShotgunWeaponEntity extends EntityWeapon
       x -= getWidth() + getXOffset();
     }
   
-    game.getEntities().add(new BulletEntity(x, getY() + 1, dx));
+    game.getEntities().add(new BulletEntity(x, getY() + 1, dx, getDamage()));
     return true;
   }
   
@@ -66,5 +66,11 @@ public class ShotgunWeaponEntity extends EntityWeapon
   public int getYOffset()
   {
     return 22;
+  }
+  
+  @Override
+  public int getDamage()
+  {
+    return 7;
   }
 }
