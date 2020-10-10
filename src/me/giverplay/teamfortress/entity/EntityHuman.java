@@ -326,7 +326,17 @@ public class EntityHuman extends Entity
 			return;
 		}
 		
-		// TODO
+		int need = equippedWeapon.getMaxAmmo() - equippedWeapon.getAmmo();
+		int result = getAmmo(equippedWeapon.getAmmoType()) - need;
+		
+		if(result >= 0)
+    {
+      setAmmo(equippedWeapon.getAmmoType(), result);
+      equippedWeapon.setAmmo(equippedWeapon.getMaxAmmo());
+      return;
+    }
+		
+		// TODO Calcular com base na quantidade atual
 	}
 	
 	public int getAmmo(EntityAmmoType type)
@@ -367,6 +377,28 @@ public class EntityHuman extends Entity
 				break;
 		}
 	}
+	
+	public void setAmmo(EntityAmmoType type, int amount)
+  {
+    switch(type)
+    {
+      case AK:
+        ammoAk = amount;
+        break;
+    
+      case RPG:
+        ammoRpg = amount;
+        break;
+    
+      case REVOLVER:
+        ammoRevolver = amount;
+        break;
+    
+      case SHOTGUN:
+        ammoShotgun = amount;
+        break;
+    }
+  }
 	
 	public void checkHeal()
 	{
