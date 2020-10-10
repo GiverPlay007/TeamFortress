@@ -6,9 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 import me.giverplay.teamfortress.algorithms.Node;
 import me.giverplay.teamfortress.algorithms.Vector2i;
-import me.giverplay.teamfortress.entity.collectibles.AkWeaponEntity;
-import me.giverplay.teamfortress.entity.collectibles.RocketLauncherWeaponEntity;
-import me.giverplay.teamfortress.entity.collectibles.ShotgunWeaponEntity;
 import me.giverplay.teamfortress.game.Keys;
 
 
@@ -28,7 +25,7 @@ public class EntityHuman extends Entity
 	private boolean right;
 	private boolean left;
 	private boolean walking;
-	private boolean jumping;
+	private boolean onAir;
 	private boolean jump;
 	private boolean invert;
 	
@@ -54,7 +51,6 @@ public class EntityHuman extends Entity
 		super(x, y, type.getWidth(), type.getHeight(), 0);
 		
 		sprites = type.getIdle();
-		equippedWeapon = new RocketLauncherWeaponEntity(x, getY(), 100);
 		setType(type);
 	}
 	
@@ -69,13 +65,13 @@ public class EntityHuman extends Entity
 	
 	private void advanceAnim()
 	{
-		sprites = jumping ? type.getJump() : walking ? type.getWalking() : type.getIdle();
-		animFrames++;
+		sprites = onAir ? type.getJump() : walking ? type.getWalking() : type.getIdle();
+		++animFrames;
 		
 		if(animFrames >= maxAnimFrames)
 		{
 			animFrames = 0;
-			animIndex++;
+			++animIndex;
 			
 			if(animIndex >= sprites.length)
 			{
@@ -150,29 +146,20 @@ public class EntityHuman extends Entity
 		
 		if (!moveAllowed(x, (int) (y + vspd)))
 		{
-			int signVsp = 0;
-			
-			if (vspd >= 0)
-			{
-				signVsp = 1;
-			}
-			else
-			{
-				signVsp = -1;
-			}
+			int signVsp = vspd >= 0 ? 1 : -1;
 			
 			while (moveAllowed(x, (int) (y + signVsp)))
 			{
-				y = y + signVsp;
+				y += signVsp;
 			}
 			
 			vspd = 0;
 		}
 		
-		y = y + vspd;
+		y += vspd;
 		jump = false;
 		
-		jumping = vspd != 0;
+		onAir = vspd != 0;
 	}
 	
 	protected void checkWalk()
@@ -247,9 +234,9 @@ public class EntityHuman extends Entity
 		this.left = left;
 	}
 	
-	public boolean isJumping()
+	public boolean isOnAir()
 	{
-		return this.jumping;
+		return this.onAir;
 	}
 	
 	public int getAmmoAk()
@@ -320,6 +307,43 @@ public class EntityHuman extends Entity
 		}
 		
 		return true;
+	}
+	
+	public void reload()
+	{
+		if(equippedWeapon == null)
+		{
+			return;
+		}
+		
+		if(equippedWeapon.getAmmo() == equippedWeapon.getMaxAmmo())
+		{
+			return;
+		}
+		
+		if(getAmmo(equippedWeapon.getAmmoType()) < 1)
+		{
+			return;
+		}
+		
+		// TODO
+	}
+	
+	public int getAmmo(EntityAmmoType type)
+	{
+		switch(type)
+		{
+			case RPG:
+				return ammoRpg;
+			case AK:
+				return ammoAk;
+			case SHOTGUN:
+				return ammoShotgun;
+			case REVOLVER:
+				return ammoRevolver;
+		}
+		
+		return -1;
 	}
 	
 	public void checkAmmoCollect(EntityAmmo ammo)

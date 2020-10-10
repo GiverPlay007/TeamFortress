@@ -31,6 +31,11 @@ public class PlayerEntity extends EntityHuman
       jump();
     }
 	  
+	  if(Keys.reload)
+		{
+			reload();
+		}
+	 
 		super.tick();
 		updateCamera();
 	}
