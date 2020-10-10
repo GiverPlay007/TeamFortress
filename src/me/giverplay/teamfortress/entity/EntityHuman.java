@@ -22,12 +22,12 @@ public class EntityHuman extends Entity
 	
 	protected BufferedImage[] sprites;
 	
-	private boolean right;
-	private boolean left;
+	protected boolean invert;
+	protected boolean right;
+	protected boolean left;
 	private boolean walking;
 	private boolean onAir;
 	private boolean jump;
-	protected boolean invert;
 	
 	protected double speed = 2;
 	
@@ -87,9 +87,9 @@ public class EntityHuman extends Entity
 			return;
 		}
 		
-		if(System.currentTimeMillis() - lastShoot >= 300)
+		if(weapon != null)
 		{
-			if(weapon != null)
+			if(System.currentTimeMillis() - lastShoot >= weapon.getDelay())
 			{
 				if(weapon.silentShoot())
 				{
@@ -217,6 +217,11 @@ public class EntityHuman extends Entity
 					path.remove(path.size() -1);
 			}
 		}
+	}
+	
+	public void setSpeed(double speed)
+	{
+		this.speed = speed;
 	}
 	
 	public void jump()

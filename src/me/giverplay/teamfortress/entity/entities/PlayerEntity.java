@@ -9,15 +9,12 @@ import me.giverplay.teamfortress.graphics.Spritesheet;
 
 public class PlayerEntity extends EntityHuman
 {
-	private Camera camera;
-	
 	public PlayerEntity(int x, int y)
 	{
 		super(EntityHumanType.getRandomBlue(), x, y);
 		
-		camera = game.getCamera();
-		
 		setDepth(2);
+		setSpeed(3);
 	}
 	
 	@Override

@@ -61,4 +61,10 @@ public class AkWeaponEntity extends EntityWeapon
   {
     return 18;
   }
+  
+  @Override
+  public int getDelay()
+  {
+    return 200;
+  }
 }

@@ -51,6 +51,12 @@ public class ShotgunWeaponEntity extends EntityWeapon
   }
   
   @Override
+  public int getDelay()
+  {
+    return 300;
+  }
+  
+  @Override
   public int getXOffset()
   {
     return 6;

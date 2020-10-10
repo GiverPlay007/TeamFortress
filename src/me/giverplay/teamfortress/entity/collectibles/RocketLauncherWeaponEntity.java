@@ -51,6 +51,12 @@ public class RocketLauncherWeaponEntity extends EntityWeapon
   }
   
   @Override
+  public int getDelay()
+  {
+    return 2000;
+  }
+  
+  @Override
   public int getXOffset()
   {
     return -10;

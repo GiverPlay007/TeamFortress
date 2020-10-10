@@ -60,4 +60,10 @@ public class RevolverWeaponEntity extends EntityWeapon
   {
     return 16;
   }
+  
+  @Override
+  public int getDelay()
+  {
+    return 350;
+  }
 }

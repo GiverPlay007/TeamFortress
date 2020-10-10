@@ -15,6 +15,7 @@ public class EnemyEntity extends EntityHuman
 		super(type, x, y);
 		
 		setDepth(1);
+		setSpeed(1);
 	}
 	
 	public EnemyEntity(int x, double y)
@@ -25,15 +26,16 @@ public class EnemyEntity extends EntityHuman
 	@Override
 	public void tick()
 	{
-		super.tick();
-		
 		if(moveAllowed(getX() + (changeDir ? -Spritesheet.TILE_SIZE : Spritesheet.TILE_SIZE), (int) (y + 1))
 				|| !moveAllowed(getX() + (changeDir ? (int) -speed : (int) -speed), getY()))
 		{
 			changeDir = !changeDir;
 			invert = changeDir;
+			left = changeDir;
+			right = !changeDir;
 		}
 		
-		moveX(changeDir ? -speed : speed);
+		moveX(invert ? -speed : speed);
+		super.tick();
 	}
 }

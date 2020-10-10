@@ -51,6 +51,8 @@ public abstract class EntityWeapon extends Entity implements Collectible
     g.drawImage(sprite, x, getCamY(), w, getHeight(), null);
   }
   
+  public abstract int getDelay();
+  
   public String getName()
   {
     return name;
