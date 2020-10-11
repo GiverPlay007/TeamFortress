@@ -37,6 +37,11 @@ public abstract class EntityWeapon extends Entity implements Collectible
     g.drawImage(sprite, getCamX(), getCamY(), null);
   }
   
+  public BufferedImage getSprite()
+  {
+    return sprite;
+  }
+  
   public void renderDummy(Graphics g, boolean invert)
   {
     int x = getCamX();
